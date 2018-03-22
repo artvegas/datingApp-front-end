@@ -25,7 +25,7 @@ export class SignUpComponent {
  private address: string,
  private state: string,
  private city: string,
- private zipcode: number
+ private zipcode: number;
 
  //console.log(personService.getAllPerson(), "person");
  persons: Person[];
