@@ -12,19 +12,19 @@ export class SignUpComponent {
  constructor(private personService: PersonService){
  }
  model = new Person("111-11-1111", "artvegas", "a6041234", "Aritra", "Nirmal", "aritranirmal@gmail.com",
-                    "917-932-7046", "109-24 Francis Lewis", "California", "Queens", "11429");
+                    "917-932-7046", "109-24 Francis Lewis", "California", "Queens", 11429);
  // model = new Person("", "", "", "", "", "", "", "", "", "", "", "");
 
- private ssn: string,
- private username: string,
- private password: string,
- private firstName: string,
- private lastName: string,
- private email: string,
- private telephone: string,
- private address: string,
- private state: string,
- private city: string,
+ private ssn: string;
+ private username: string;
+ private password: string;
+ private firstName: string;
+ private lastName: string;
+ private email: string;
+ private telephone: string;
+ private address: string;
+ private state: string;
+ private city: string;
  private zipcode: number;
 
  //console.log(personService.getAllPerson(), "person");
