@@ -1,0 +1,26 @@
+.container {
+  max-width: 960px;
+}
+
+.border-top { border-top: 1px solid #e5e5e5; }
+.border-bottom { border-bottom: 1px solid #e5e5e5; }
+.border-top-gray { border-top-color: #adb5bd; }
+
+.box-shadow { box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05); }
+
+.lh-condensed { line-height: 1.25; }
+
+.signup-form{
+  margin-left: auto;
+  margin-right: auto;
+  width:50%;
+  padding:5%;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #33b5e5; /* blue */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #ff4444; /* red */
+}
