@@ -11,9 +11,7 @@ export class SignUpComponent {
 
  constructor(private personService: PersonService){
  }
- model = new Person("111-11-1111", "artvegas", "a6041234", "Aritra", "Nirmal", "aritranirmal@gmail.com",
-                    "917-932-7046", "109-24 Francis Lewis", "California", "Queens", 11429);
- // model = new Person("", "", "", "", "", "", "", "", "", "", "", "");
+ model = new Person("", "", "", "", "", "", "", "", "", "", "", "");
 
  private ssn: string;
  private username: string;
@@ -22,12 +20,11 @@ export class SignUpComponent {
  private lastName: string;
  private email: string;
  private telephone: string;
- private address: string;
+ private street: string;
  private state: string;
  private city: string;
  private zipcode: number;
 
- //console.log(personService.getAllPerson(), "person");
  persons: Person[];
 
 getPersons(): void {
@@ -36,7 +33,9 @@ getPersons(): void {
 }
 
 onSubmit(form) {
+  console.log("adding person to server\n");
   this.getPersons();
+  this.personService.addPerson(this.model).subscribe(response => console.log(response));
 }
  ssnPattern = '^\\d{3}-?\\d{2}-?\\d{4}$';
  phonePattern = '^(\\+\\d{1,2}\\s)?\\(?\\d{3}\\)?[\\s.-]\\d{3}[\\s.-]\\d{4}$';
