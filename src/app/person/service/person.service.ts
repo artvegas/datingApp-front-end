@@ -30,13 +30,7 @@ constructor( private http: HttpClient){}
    getAllPerson (): Observable<Person[]> {
     return this.http.get<Person[]>(this.getAllUrl)
   }
-
-  // signUpPerson(person): {
-  //   return this.http
-  //   .put(this.addPerson, JSON.stringify(person), {headers: headers} )
-  //   .map(res => res.json());
-  // }
-
+  
   addPerson (person: Person): Observable<Person> {
     console.log(person, "person");
   return this.http.post<Person>(this.addPersonUrl, person, httpOptions).pipe(
