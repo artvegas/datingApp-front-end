@@ -69,18 +69,18 @@
               <div class="mb-3">
                 <label for="ssn">SSN (Social Secruity Number)</label>
                 <div class="input-group">
-                  <input type="text" class="form-control" id="ssn" placeholder="XX-XXX-XXXX"
+                  <input type="text" class="form-control" id="ssn" placeholder="XXX-XX-XXXX"
                   [(ngModel)]="model.ssn" name="ssn" #ssn="ngModel" [pattern]="ssnPattern" required>
                   <div [hidden]="ssn.valid || ssn.pristine" class="alert alert-danger" style="width: 100%;">
-                    Your SSN should be formatted as XX-XXX-XXXX.
+                    Your SSN should be formatted as XXX-XX-XXXX.
                   </div>
                 </div>
               </div>
 
               <div class="mb-3">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" placeholder="1234 Main St"
-                [(ngModel)]="model.address" name="Address" required>
+                <input type="text" class="form-control" id="street" placeholder="1234 Main St"
+                [(ngModel)]="model.street" name="Address" required>
                 <div class="invalid-feedback">
                   Please enter your address.
                 </div>
