@@ -8,7 +8,7 @@ export class Person {
     private lastName: string,
     private email: string,
     private telephone: string,
-    private address: string,
+    private street: string,
     private state: string,
     private city: string,
     private zipcode: number
