@@ -27,10 +27,15 @@ constructor( private http: HttpClient){}
    private getAllUrl = this.baseUrl + '/all';  // URL to web api
    private addPersonUrl = this.baseUrl + "/add";
    private loginUrl = this.baseUrl + "/login";
+   private getPersonUrl = this.baseUrl + "/";
 
    getAllPerson (): Observable<Person[]> {
     return this.http.get<Person[]>(this.getAllUrl)
   }
+
+  getPerson (string: email): Observable<Person[]> {
+   return this.http.get<Person[]>(this.getPersonUrl, email)
+ }
 
   addPerson (person: Person): Observable<Person> {
     console.log(person, "person");
@@ -47,6 +52,7 @@ constructor( private http: HttpClient){}
       catchError(this.handleError<Person>('logged in'))
   );
  }
+
 
 
   /**
