@@ -26,18 +26,27 @@ constructor( private http: HttpClient){}
    private baseUrl = "http://localhost:8080/persons";
    private getAllUrl = this.baseUrl + '/all';  // URL to web api
    private addPersonUrl = this.baseUrl + "/add";
+   private loginUrl = this.baseUrl + "/login";
 
    getAllPerson (): Observable<Person[]> {
     return this.http.get<Person[]>(this.getAllUrl)
   }
-  
+
   addPerson (person: Person): Observable<Person> {
     console.log(person, "person");
-  return this.http.post<Person>(this.addPersonUrl, person, httpOptions).pipe(
+    return this.http.post<Person>(this.addPersonUrl, person, httpOptions).pipe(
     tap((person: Person) => this.log(`added person w/ ssn=${person.ssn}`)),
     catchError(this.handleError<Person>('addPerson'))
   );
 }
+
+  login (person: Person): Observable<Person> {
+    console.log(person, "person");
+    return this.http.post<Person>(this.loginUrl, person, httpOptions).pipe(
+      tap((person: Person) => this.log(`logged in person w/ ssn=${person.ssn}`)),
+      catchError(this.handleError<Person>('logged in'))
+  );
+ }
 
 
   /**
