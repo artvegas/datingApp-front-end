@@ -2,7 +2,6 @@ export class Person {
 
   constructor(
     private ssn: string,
-    private username: string,
     private password: string,
     private firstName: string,
     private lastName: string,
