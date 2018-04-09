@@ -16,19 +16,19 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
-            <a class="nav-link" href="#">My Profile <span class="sr-only">(current)</span></a>
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['profile']">My Profile</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">My Accounts</a>
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['account']">My Accounts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Favorites</a>
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['favorites']">Favorites</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Dates</a>
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['dates']">Dates</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Search</a>
+            <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['search']">Search</a>
           </li>
         </ul>
         <span class="navbar-text">
@@ -37,13 +37,13 @@
               <a class="nav-link">Current Account: None</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Settings</a>
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['settings']">Settings</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Switch</a>
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['switch']">Switch</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
+              <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['logout']">Logout</a>
             </li>
           </ul>
         </span>
