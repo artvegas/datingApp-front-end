@@ -1,0 +1,35 @@
+<div class="">
+          <div class="signup-form col-md-4 order-md-1">
+            <h4 class="mb-3">Welcome Back</h4>
+            <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
+
+              <div class="mb-3">
+                <label for="username">Username</label>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text">@</span>
+                  </div>
+                  <input type="text" class="form-control" id="username" placeholder="Username"
+                   [(ngModel)]="model.username" name="username" required>
+                  <div class="invalid-feedback" style="width: 100%;">
+                    Your username is required.
+                  </div>
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="password">Password</label>
+                <div class="input-group">
+                  <input type="password" class="form-control" id="password" placeholder="Password"
+                   [(ngModel)]="model.password" name="password" required>
+                  <div class="invalid-feedback" style="width: 100%;">
+                    Your password is required.
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid" >Sign In</button>
+            </form>
+          </div>
+
+</div>

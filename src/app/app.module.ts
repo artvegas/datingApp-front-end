@@ -6,7 +6,9 @@ import { HttpClientModule }    from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { SignUpComponent } from './signup/signup.component';
+import { SignInComponent } from './signin/signin.component';
 import { HomeComponent } from './home/home.component';
+import { HomeNavComponent } from './home/nav/nav.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { PersonService } from './person/service/person.service';
@@ -17,7 +19,9 @@ import { PersonService } from './person/service/person.service';
   declarations: [
     AppComponent,
     SignUpComponent,
-    HomeComponent
+    SignInComponent,
+    HomeComponent,
+    HomeNavComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Person } from '../person/person';
 import { PersonService } from '../person/service/person.service'
+import { HomeNavComponent } from '../home/nav/nav.component'
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
@@ -8,6 +9,7 @@ import { PersonService } from '../person/service/person.service'
 })
 export class SignUpComponent {
  title = "Sign Up";
+
 
  constructor(private personService: PersonService){
  }
