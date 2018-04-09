@@ -4,15 +4,12 @@
             <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
 
               <div class="mb-3">
-                <label for="username">Username</label>
+                <label for="username">Email</label>
                 <div class="input-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">@</span>
-                  </div>
-                  <input type="text" class="form-control" id="username" placeholder="Username"
+                  <input type="text" class="form-control" id="username" placeholder="example@gmail.com"
                    [(ngModel)]="model.username" name="username" required>
                   <div class="invalid-feedback" style="width: 100%;">
-                    Your username is required.
+                    Your email is required.
                   </div>
                 </div>
               </div>
