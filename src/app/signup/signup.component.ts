@@ -1,18 +1,16 @@
 import { Component } from '@angular/core';
 import { Person } from '../person/person';
-import { PersonService } from '../person/service/person.service'
-import { HomeNavComponent } from '../home/nav/nav.component'
+import { PersonService } from '../person/service/person.service';
+
 @Component({
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })
 export class SignUpComponent {
- title = "Sign Up";
+  
+ constructor(private personService: PersonService){}
 
-
- constructor(private personService: PersonService){
- }
  model = new Person("", "", "", "", "", "", "", "", "", "");
  alertShow = false;
  alertMessage = "";
