@@ -11,6 +11,9 @@ import { HomeComponent } from './home/home.component';
 import { HomeNavComponent } from './home/nav/nav.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { ProfileComponent } from './profile/profile.component';
+
+
 import { PersonService } from './person/service/person.service';
 
 
@@ -21,7 +24,8 @@ import { PersonService } from './person/service/person.service';
     SignUpComponent,
     SignInComponent,
     HomeComponent,
-    HomeNavComponent
+    HomeNavComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

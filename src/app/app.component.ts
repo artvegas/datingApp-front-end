@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 
 export class AppComponent implements OnInit {
   title = 'Dating App';
+  //userLoggedIn = true;
   constructor(private router: Router) {}
   ngOnInit(){
 
