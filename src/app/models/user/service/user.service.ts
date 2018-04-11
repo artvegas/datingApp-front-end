@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs/Observable';
-import { Person } from '../person'
+import { User } from '../user'
 import { of } from 'rxjs/observable/of';
 import { catchError, map, tap } from 'rxjs/operators';
 
@@ -16,42 +16,32 @@ const httpOptions = {
 
 
 @Injectable()
-export class PersonService{
+export class UserService{
 constructor( private http: HttpClient){}
 
     private log(message: string) {
-     console.log('PersonService: ' + message);
+     console.log('UserService: ' + message);
     }
 
-   private baseUrl = "http://localhost:8080/persons";
-   private getAllUrl = this.baseUrl + '/all';  // URL to web api
-   private addPersonUrl = this.baseUrl + "/add";
-   private loginUrl = this.baseUrl + "/login";
-   private getPersonUrl = this.baseUrl + "/";
+   private baseUrl = "http://localhost:8080/users/";
+   private getAllUrl = this.baseUrl + "all"; // URL to web api
+   private addUserUrl = this.baseUrl + "add";
 
-   getAllPerson (): Observable<Person[]> {
-    return this.http.get<Person[]>(this.getAllUrl)
+   getALlUsers (): Observable<User[]> {
+    return this.http.get<User[]>(this.getAllUrl)
   }
 
-  getPerson (string: email): Observable<Person[]> {
-   return this.http.get<Person[]>(this.getPersonUrl, email)
+  getUserWithSSN (ssn: String): Observable<User[]> {
+   return this.http.get<User[]>(this.baseUrl + ssn)
  }
 
-  addPerson (person: Person): Observable<Person> {
-    console.log(person, "person");
-    return this.http.post<Person>(this.addPersonUrl, person, httpOptions).pipe(
-    tap((person: Person) => this.log(`added person w/ ssn=${person.ssn}`)),
-    catchError(this.handleError<Person>('addPerson'))
+  addUser (user: User): Observable<User> {
+    console.log(user, "user");
+    return this.http.post<User>(this.addUserUrl, user, httpOptions).pipe(
+    tap((user: User) => this.log(`added user ${user}`)),
+    catchError(this.handleError<User>('addUser'))
   );
 }
-
-  login (person: Person): Observable<Person> {
-    console.log(person, "person");
-    return this.http.post<Person>(this.loginUrl, person, httpOptions).pipe(
-      tap((person: Person) => this.log(`logged in person w/ ssn=${person.ssn}`)),
-      catchError(this.handleError<Person>('logged in'))
-  );
- }
 
 
 

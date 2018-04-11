@@ -1,13 +1,13 @@
+<active-nav></active-nav>
 <div class="profile">
-
   <div *ngIf="userHasNoAccounts">
     <div class="jumbotron">
-      <h1 class="display-4">Hey, Aritra Nirmal</h1>
+      <h1 class="display-4">Hey, {{userData[0].firstName + " " + userData[0].lastName}}</h1>
       <p class="lead">Looks like you haven't create an dating account yet. Click the button below to create an account so you start creating profiles and find dates!</p>
       <hr class="my-4">
       <p>You will need your credit card information when creating a new account.</p>
       <p class="lead">
-        <a class="btn btn-primary btn-lg" href="#" role="button">Create Account</a>
+        <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
       </p>
     </div>
   </div>

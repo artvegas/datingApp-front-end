@@ -13,4 +13,7 @@ export class Person {
     private zipcode: number
   ) {  }
 
+  getSSN(): string{
+    return this.ssn;
+  }
 }

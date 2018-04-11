@@ -1,0 +1,62 @@
+<active-nav></active-nav>
+
+<div class="accounts">
+  <div class="row">
+    <div class="col-md-4 order-md-1">
+            <div class="account-form">
+              <h4 class="mb-3">Create New Account</h4>
+
+              <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
+                Please enter a valid credit-card number
+              </div>
+
+              <div class="alert alert-warning" *ngIf="alertShow" role="alert">
+                {{alertMessage}}
+              </div>
+
+              <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
+
+                <div class="mb-3">
+                  <label for="email">Account Name</label>
+                  <input type="text" class="form-control" id="acctName"
+                  [(ngModel)]="accountId.acctName" name="acctName" placeholder="Account Name" required>
+                  <div class="invalid-feedback" *ngIf="ccAlert">
+                    Please enter a valid credit-card number
+                  </div>
+                </div>
+
+                <div class="mb-3">
+                  <label for="email">Credit Card</label>
+                  <input type="text" class="form-control" id="ccNum"
+                  [(ngModel)]="accountId.cardNumber" name="ccNum" (change)="ValidateCreditCardNumber()" placeholder="555-555-5555" required>
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Create Account</button>
+              </form>
+            </div>
+    </div>
+    <div class="col-md-8 order-md-1">
+            <div class="account-form">
+              <h4 class="mb-3">Accounts</h4>
+
+              <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
+                Please enter a valid credit-card number
+              </div>
+
+              <div class="row">
+                <div *ngFor="let account of userAccounts" class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{account.account.acctName}}</h5>
+                      <p class="card-text">{{account.account.cardNumber}}</p>
+                      <a href="#" class="btn btn-primary">Use Account</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+    </div>
+  </div>
+
+</div>

@@ -3,13 +3,11 @@ import { Router } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
 
 @Component({
-  selector: 'home-nav',
+  selector: 'active-nav',
   templateUrl: './nav.component.html',
   styleUrls: ['./nav.component.css']
 })
-export class HomeNavComponent {
-
-  userLoggedIn = false;
+export class ActiveNavComponent {
 
   constructor(private router:Router, private cookieService: CookieService){}
   // ngOnInit() {
@@ -24,6 +22,6 @@ export class HomeNavComponent {
   }
 
   ngDoCheck(): void{
-    console.log(this.userLoggedIn, "userLoggedIn");
+    
   }
 }
