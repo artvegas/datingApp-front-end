@@ -25,6 +25,14 @@ export class HomeNavComponent {
       this.sharedService.currentProfile.subscribe( value =>
           this.currentProfile = value
       );
+      if(this.cookieService.get("currentProfile") != null){
+          var tempProfile = JSON.parse(this.cookieService.get("currentProfile"));
+          this.currentProfile = tempProfile.profileName;
+      }
+      if(this.cookieService.get("currentAccount") != null){
+          var tempAccount = JSON.parse(this.cookieService.get("currentAccount"));
+          this.currentAccount = tempAccount.account.acctName;
+      }
     }
 
   logout(): void{

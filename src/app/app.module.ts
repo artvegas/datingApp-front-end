@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app-routing.module';
 //user logged in pages
 import { ProfileComponent } from './active/profile/profile.component';
 import { AccountComponent } from './active/accounts/accounts.component';
+import { SearchComponent } from './active/search/search.component';
 
 
 import { PersonService } from './models/person/service/person.service';
@@ -34,7 +35,8 @@ import { SharedService } from './active/service/shared.service';
     HomeNavComponent,
     ProfileComponent,
     AccountComponent,
-    ActiveNavComponent
+    ActiveNavComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,
