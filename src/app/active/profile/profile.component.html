@@ -1,4 +1,3 @@
-<active-nav></active-nav>
 <div class="profile">
   <div *ngIf="userHasNoAccounts">
     <div class="jumbotron">
@@ -9,6 +8,185 @@
       <p class="lead">
         <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
       </p>
+    </div>
+  </div>
+
+  <div *ngIf="!userHasNoAccounts">
+    <div class="row">
+      <div class="col-md-4 order-md-1">
+              <div class="account-form">
+                <div class="row header">
+                  <div class="col-sm-8">
+                    <h4 class="sm-8">{{dashboardMessage}}</h4>
+                  </div>
+                  <div class="col-sm-4">
+                    <button type="button" *ngIf="editMode" (click)="doneEditing()"
+                    class="btn btn-outline-danger edit">Close Editing</button>
+                  </div>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="alertShow" role="alert">
+                  {{alertMessage}}
+                </div>
+
+                <div class="alert alert-success" *ngIf="alertSuccess" role="alert">
+                  {{alertMessage}}
+                </div>
+
+                <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
+                  <br>
+                  <div class="mb-3 row">
+
+                    <label for="age" class="col-sm-12 h5">Personal Information</label>
+                    <br>
+                    <div class="col-sm-12">
+                      <label for="age">Profile Name</label>
+                      <input type="text" class="form-control" id="profileName"
+                      [(ngModel)]="profile.profileName" name="profileName" placeholder="Profile Name" required>
+                      <div class="invalid-feedback">
+                        Please enter a profile name.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="age">Age</label>
+                      <input type="text" class="form-control" id="age"
+                      [(ngModel)]="profile.age" name="age" placeholder="Age" required>
+                      <div class="invalid-feedback">
+                        Please enter your age.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="m_f">Gender</label>
+                      <select class="custom-select d-block w-100" id="m_f"
+                      [(ngModel)]="profile.m_f" name="m_f" required>
+                        <option value="">Choose...</option>
+                        <option>Male</option>
+                        <option>Female</option>
+                        <option>Other</option>
+                      </select>
+                      <div class="invalid-feedback">
+                        Please pick your gender.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="age">Weight</label>
+                      <input type="text" class="form-control" id="weight"
+                      [(ngModel)]="profile.weight" name="weight" placeholder="120" required>
+                      <div class="invalid-feedback">
+                        Please enter your weight.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="age">Height</label>
+                      <input type="text" class="form-control" id="height"
+                      [(ngModel)]="profile.height" name="height" placeholder="5.7" required>
+                      <div class="invalid-feedback">
+                        Please enter your age.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="age">Hair Color</label>
+                      <input type="text" class="form-control" id="hairColor"
+                      [(ngModel)]="profile.hairColor" name="hairColor" placeholder="Black" required>
+                      <div class="invalid-feedback">
+                        Please enter your hair color.
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="age">Hobbies</label>
+                      <textarea type="textarea" class="form-control" id="hobbies"
+                      [(ngModel)]="profile.hobbies" name="hobbies" placeholder="Painting, Drawing.." required></textarea>
+                      <div class="invalid-feedback">
+                        Please enter your hobbies.
+                      </div>
+                    </div>
+
+                  </div>
+                  <br>
+
+                  <div class="mb-3 row">
+                    <label for="age" class="col-sm-12 h5">Dating Age Range</label>
+                    <br>
+                      <div class="col-sm-6">
+                        <label for="">Start</label>
+                        <input type="text" class="form-control" id="datingAgeRangeStart"
+                        [(ngModel)]="profile.datingAgeRangeStart" name="datingAgeRangeStart" placeholder="Start Age" required>
+                      </div>
+                      <div class="col-sm-6">
+                        <label for="email">End</label>
+                        <input type="text" class="form-control" id="datingAgeRangeEnd"
+                        [(ngModel)]="profile.datingAgeRangeEnd" name="datingAgeRangeEnd" placeholder="End Age" required>
+                      </div>
+                  </div>
+                  <br>
+
+                  <div class="mb-3 row">
+                    <label for="age" class="col-sm-12 h5">Dating Geo Range</label>
+                    <br>
+                    <div class="col-sm-12">
+                      <label for="geo">Geo Range: {{profile.datingGeoRange}} miles</label>
+                      <input type="range" min="1" max="100" class="form-control slider" id="datingGeoRange"
+                      [(ngModel)]="profile.datingGeoRange"  name="datingGeoRange" value="1" required>
+                    </div>
+                  </div>
+
+                  <br>
+                  <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">{{dashboardBtnMessage}}</button>
+                </form>
+              </div>
+      </div>
+      <div class="col-md-8 order-md-1">
+              <div class="account-form">
+                <h4 class="mb-3">Profiles</h4>
+
+                <div *ngIf="userHasNoProfiles">
+                  <div class="jumbotron">
+                    <h1 class="display-4">No Profiles.</h1>
+                    <p class="lead">Looks like you haven't any profiles yet. account yet.
+                    Create a new profile to start finding matches!</p>
+                    <hr class="my-4">
+                    <p>You can create as many profiles as you like.</p>
+                  </div>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
+                  Please enter a valid credit-card number
+                </div>
+
+                <div *ngIf="userProfiles" class="row card-columns">
+                  <div *ngFor="let profile of userProfiles" class="col-sm-6">
+                    <div class="card">
+                       <div [ngClass]="{'bg-primary text-white' : activeProfileCheck(profile)}" class="card-body">
+                         <h5 class="card-title">{{profile.profileName}}</h5>
+                       </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Age: {{profile.age}} years old</li>
+                        <li class="list-group-item">Weight: {{profile.weight}} lbs</li>
+                        <li class="list-group-item">Height: {{profile.height}} feet</li>
+                        <li class="list-group-item">Hobbies: {{profile.hobbies}} feet</li>
+                        <li class="list-group-item">Age Range: {{profile.datingAgeRangeStart}}
+                        to {{profile.datingAgeRangeEnd}} year olds</li>
+                        <li class="list-group-item">Geo Range: {{profile.datingGeoRange}} miles</li>
+                      </ul>
+                      <div class="card-body">
+                        <button (click)="useProfile(profile)" style="" class="btn btn-primary" [ngClass]="{'btn-success' : activeProfileCheck(profile)}">{{getBtnMessage(profile, 0)}}</button>
+                        <button (click)="editProfile(profile)" style="" class="btn btn-secondary" [ngClass]="{'btn-success' : editProfileCheck(profile)}">{{getBtnMessage(profile, 1)}}</button>
+                      </div>
+                      <div class="card-footer text-muted">
+                        Last Edited {{timeSince(profile.lastModDate)}} ago
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+      </div>
     </div>
   </div>
 

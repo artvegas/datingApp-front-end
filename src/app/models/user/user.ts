@@ -10,4 +10,7 @@ export class User {
     private dateOfLastAct: Date
   ) {  }
 
+  setSSN(ssn: string): void{
+    this.ssn = ssn;
+  }
 }

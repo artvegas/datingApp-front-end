@@ -21,8 +21,9 @@ import { AccountComponent } from './active/accounts/accounts.component';
 import { PersonService } from './models/person/service/person.service';
 import { UserService } from './models/user/service/user.service';
 import { AccountService } from './models/account/service/account.service';
+import { ProfileService } from './models/profile/service/profile.service';
 
-
+import { SharedService } from './active/service/shared.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AccountService } from './models/account/service/account.service';
     FormsModule,
     HttpClientModule
   ],
-  providers: [PersonService, CookieService,AccountService, UserService],
+  providers: [PersonService, CookieService,AccountService, UserService, SharedService,
+  ProfileService],
   bootstrap: [AppComponent]
 })
 

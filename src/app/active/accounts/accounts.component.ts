@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { User } from '../../models/user/user';
 import { Person } from '../../models/person/person';
 import { Account } from '../../models/account/account';
 import { AccountId } from '../../models/account/accountId';
@@ -6,6 +7,7 @@ import { PersonService } from '../../models/person/service/person.service';
 import { AccountService } from '../../models/account/service/account.service'
 import {CookieService} from 'angular2-cookie/core';
 import { Observable } from 'rxjs/Observable';
+import { SharedService } from '../service/shared.service';
 
 @Component({
   selector: 'accounts',
@@ -13,19 +15,26 @@ import { Observable } from 'rxjs/Observable';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountComponent {
-  constructor(private accountService: AccountService, private cookieService: CookieService){}
+  constructor(private accountService: AccountService, private cookieService: CookieService,
+  private sharedService : SharedService){}
   userData = "";
   userHasNoAccounts = true;
   ccAlert = false;
-  showAlert = false;
+  alertShow = false;
   alertMessage = "";
+  activeAccount = {account: null};
   // model = new Person("111-11-1111", "123456", "Aritra", "Nirmal", "aritranirmal@gmail.com", "917-932-7046",
   //  "109-24 Francis Lewis Blvd", "NY", "Queens", 11429);
   accountId = new AccountId("", "", "");
-  userAccounts = "";
+  userAccounts = null;
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
     this.getAllUserAccounts(this.userData[0]['ssn']);
+    if(this.cookieService.get("currentAccount") != null){
+        var tempAccount = JSON.parse(this.cookieService.get("currentAccount"));
+        this.useAccount(tempAccount);
+    }
+    console.log(this.activeAccount, "active");
   }
 
   getAllUserAccounts(ssn: string): void{
@@ -63,19 +72,44 @@ export class AccountComponent {
      console.log(this.ccAlert);
   }
 
-  showAlert(response) : void {
+  showAlert(response, account) : void {
     if(response.statusCode != 200){
       this.alertShow = true;
       this.alertMessage = response.status;
+    }else{
+      this.userAccounts.push(account);
     }
   }
 
   onSubmit(form) : void {
     console.log("adding new account\n");
-    var account = new Account(this.accountId, this.userData[0]);
+    let user : User = new User(this.userData[0]['ssn'], null, null, null, null);
+    var account = new Account(this.accountId, user);
     this.accountService.addAccount(account).subscribe(
-      response => this.showAlert(response)
-  )}
+      response => this.showAlert(response, account)
+    )
 
+  }
+
+
+  activeAccountCheck(account): boolean {
+		if (this.activeAccount.account.acctName === account.account.acctName) {
+			return true;
+		}
+		return false;
+	}
+
+  useAccount(account){
+    this.sharedService.currentAccount.next(account.account.acctName);
+    this.activeAccount = account;
+    this.cookieService.putObject("currentAccount", account);
+  }
+
+  getBtnMessage(account){
+    if (this.activeAccount.account.acctName === account.account.acctName) {
+			return "Using Account";
+		}
+		return "Use Account";
+  }
 
 }

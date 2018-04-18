@@ -3,6 +3,7 @@ import { Person } from '../../models/person/person';
 import { PersonService } from '../../models/person/service/person.service';
 import { Router } from '@angular/router';
 import {CookieService} from 'angular2-cookie/core';
+import { SharedService } from '../../active/service/shared.service'
 
 @Component({
   selector: 'sign-in',
@@ -19,7 +20,7 @@ export class SignInComponent {
   emailPattern = '^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$';
 
   constructor(private personService: PersonService, private router: Router,
-  private cookieService:CookieService){}
+  private cookieService:CookieService, private sharedService : SharedService){}
 
   onSubmit(form) : void {
     console.log("logging in person to server\n");
@@ -34,7 +35,12 @@ export class SignInComponent {
     }else{
       this.cookieService.putObject("userData", response.object);
       this.cookieService.put("session", "true");
+      this.userIsLoggedIn();
       this.router.navigateByUrl('/profile');
     }
+  }
+
+  userIsLoggedIn(){
+    this.sharedService.userIsLoggedIn.next(true);
   }
 }
