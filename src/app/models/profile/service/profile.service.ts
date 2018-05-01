@@ -27,6 +27,8 @@ constructor( private http: HttpClient){}
    private getAllUrl = this.baseUrl + "all"; // URL to web api
    private addProfileUrl = this.baseUrl + "add";
    private saveProfileUrl = this.baseUrl + "save";
+   private findProfileUrl = this.baseUrl + "find";
+   private deleteProfileUrl = this.baseUrl + "delete";
 
    getAllProfile (): Observable<Profile[]> {
     return this.http.get<Profile[]>(this.getAllUrl)
@@ -50,8 +52,19 @@ constructor( private http: HttpClient){}
     catchError(this.handleError<Profile>('saveProfile'))
   )}
 
+   findProfiles (profile: Profile): Observable<Profile> {
+    console.log(profile, "profile");
+    return this.http.post<Profile>((this.findProfileUrl), profile, httpOptions).pipe(
+    tap((profile: Profile) => this.log(`find profiles ${profile}`)),
+    catchError(this.handleError<Profile>('findProfiles'))
+  )}
 
-
+  deleteProfile (profile: Profile): Observable<Profile> {
+   console.log(profile, "profile");
+   return this.http.post<Profile>((this.deleteProfileUrl), profile, httpOptions).pipe(
+   tap((profile: Profile) => this.log(`delete profiles ${profile}`)),
+   catchError(this.handleError<Profile>('delete profile'))
+ )}
 
   /**
     * Handle Http operation that failed.

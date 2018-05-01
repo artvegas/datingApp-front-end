@@ -2,7 +2,16 @@
   <div class="row">
     <div class="col-md-4 order-md-1">
             <div class="account-form">
-              <h4 class="mb-3">Create New Account</h4>
+              <div class="row header">
+                <div class="col-sm-8">
+                  <h4 class="sm-8">{{dashboardMessage}}</h4>
+                </div>
+                <div class="col-sm-4">
+                  <button type="button" *ngIf="editMode" (click)="closeEdit()"
+                  class="btn btn-outline-danger edit">Close Editing</button>
+                </div>
+              </div>
+              <br>
 
               <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
                 Please enter a valid credit-card number
@@ -12,11 +21,15 @@
                 {{alertMessage}}
               </div>
 
+              <div class="alert alert-success" *ngIf="alertSuccess" role="alert">
+                {{alertMessage}}
+              </div>
+
               <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
 
                 <div class="mb-3">
                   <label for="email">Account Name</label>
-                  <input type="text" class="form-control" id="acctName"
+                  <input [disabled]="editMode" type="text" class="form-control" id="acctName"
                   [(ngModel)]="accountId.acctName" name="acctName" placeholder="Account Name" required>
                   <div class="invalid-feedback" *ngIf="ccAlert">
                     Please enter a valid credit-card number
@@ -26,10 +39,10 @@
                 <div class="mb-3">
                   <label for="email">Credit Card</label>
                   <input type="text" class="form-control" id="ccNum"
-                  [(ngModel)]="accountId.cardNumber" name="ccNum" (change)="ValidateCreditCardNumber()" placeholder="555-555-5555" required>
+                  [(ngModel)]="accountId.cardNumber" name="ccNum" (change)="ValidatesCreditCardNumber()" placeholder="555-555-5555" required>
                 </div>
 
-                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Create Account</button>
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">{{dashboardBtnMessage}}</button>
               </form>
             </div>
     </div>
@@ -37,18 +50,24 @@
             <div class="account-form">
               <h4 class="mb-3">Accounts</h4>
 
-              <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
-                Please enter a valid credit-card number
-              </div>
-
               <div *ngIf="userAccounts" class="row">
-                <div *ngFor="let account of userAccounts" (click)="useAccount(account)" class="col-sm-6 accCard">
-                  <div class="card" [ngClass]="{'bg-primary text-white' : activeAccountCheck(account)}">
-                    <div class="card-body">
+                <div *ngFor="let account of userAccounts" class="col-sm-6 accCard">
+                  <div class="card">
+                    <div class="card-body"  [ngClass]="{'bg-primary text-white' : activeAccountCheck(account)}">
                       <h5 class="card-title">{{account.account.acctName}}</h5>
-                      <p class="card-text">{{account.account.cardNumber}}</p>
-                      <button class="btn btn-primary"
-                      [ngClass]="{'btn-light' : activeAccountCheck(account)}"> {{getBtnMessage(account)}}</button>
+                    </div>
+                    <ul  class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                       Credit Card
+                      <button class="btn btn-outline-primary">{{account.account.cardNumber}}</button>
+                      </li>
+                    </ul>
+                    <div class="card-footer">
+                      <button class="btn btn-outline-primary" (click)="useAccount(account)"
+                      [ngClass]="{'btn-primary-s' : activeAccountCheck(account)}"> {{getBtnMessageActive(account)}}</button>
+                      <button class="btn btn-outline-primary" (click)="editAccount(account)"
+                      [ngClass]="{'btn-primary-s' : editAccountCheck(account)}"> {{getBtnMessageEdit(account)}}</button>
+                      <button (click)="delAcct = account" class="btn btn-outline-danger"  data-toggle="modal" data-target="#deleteMod">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -57,5 +76,31 @@
             </div>
     </div>
   </div>
+
+  <div class="modal fade" id="deleteMod" tabindex="-1" role="dialog" aria-labelledby="DeleteModual" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deleting Profile</h5>
+        <button type="button" (click)="delToggle = false; delMessage = ''" class="close"  data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!delToggle">
+            Are you sure you want to delete this account?
+        </div>
+        <div class="alert alert-warning" *ngIf="delToggle" role="alert">
+          {{delMessage}}
+        </div>
+      </div>
+      <div *ngIf="!delToggle" class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" (click)="deleteAccount()" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 </div>

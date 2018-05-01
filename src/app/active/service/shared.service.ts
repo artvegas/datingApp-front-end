@@ -6,4 +6,7 @@ export class SharedService {
     public currentAccount: Subject<string> = new Subject<string>();
     public currentProfile: Subject<string> = new Subject<string>();
     public userIsLoggedIn: Subject<boolean> = new Subject<boolean>();
+    public managerIsLoggedIn: Subject<boolean> = new Subject<boolean>();
+
+
 }

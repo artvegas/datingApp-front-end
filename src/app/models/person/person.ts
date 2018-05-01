@@ -1,16 +1,16 @@
 export class Person {
 
   constructor(
-    private ssn: string,
-    private password: string,
-    private firstName: string,
-    private lastName: string,
-    private email: string,
-    private telephone: string,
-    private street: string,
-    private state: string,
-    private city: string,
-    private zipcode: number
+    public ssn: string,
+    public password: string,
+    public firstName: string,
+    public lastName: string,
+    public email: string,
+    public telephone: string,
+    public street: string,
+    public state: string,
+    public city: string,
+    public zipcode: number
   ) {  }
 
   getSSN(): string{

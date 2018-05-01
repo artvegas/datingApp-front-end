@@ -1,0 +1,83 @@
+.favorites{
+  padding:5%;
+}
+
+.profilePictureDiv{
+  width:200px;
+  height:300px;
+  background-color:#fcfcfc;
+  border-radius:3px;
+  border-style:solid;
+  border-color:#edeeef;
+}
+
+.datesForm{
+  border-style:none;
+  padding:5%;
+  width:100%;
+  text-align: left;
+}
+.border-primary{
+  border-color: #007bff;
+}
+.progress{
+  height:40px;
+  vertical-align: center;
+}
+
+.progress-bar{
+  padding-top:10px;
+  vertical-align: center;
+}
+
+.hobbies{
+  margin:4px;
+}
+.profileData{
+  vertical-align: center;
+  margin-top:7px;
+}
+
+.text-muted-2{
+  color:rgba(0,0,0,.5);
+}
+
+.accounts{
+  padding:5%;
+}
+
+.accCard{
+  margin-bottom:4%;
+}
+
+.btn-primary-s{
+  color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+}
+.bg-primary-s{
+  background-color: #007bff;
+  border-color: #007bff;
+}
+.comment{
+  margin:5px;
+  border-radius:3px;
+}
+
+.comment-box{
+  padding:2%;
+  border-style:none;
+}
+
+.overflow-box{
+  overflow: auto;
+  max-height:400px;
+}
+
+.custom-select{
+  width:200px;
+  float:right;
+    color: #007bff;
+      margin-bottom:5px;
+  border-color: #007bff;
+}

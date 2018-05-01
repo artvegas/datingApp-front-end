@@ -27,17 +27,18 @@ export class ProfileComponent {
 	userHasNoAccounts = false;
 	userHasNoProfiles = false;
 	alertShow = false;
+	delProfile: Profile = null;
 	alertMessage = "";
-	activeProfile = {
-		profileName: "none"
-	};
+	delToggle = false;
+	delMessage = "";
+	activeProfile : Profile = new Profile();
 	editMode = false;
 	dashboardMessage = "Create New Profile";
 	dashboardBtnMessage = "Create Profile";
 	// model = new Person("111-11-1111", "123456", "Aritra", "Nirmal", "aritranirmal@gmail.com",
 	// 	"917-932-7046", "109-24 Francis Lewis Blvd", "NY", "Queens", 11429);
 	profile = new Profile();
-	userProfiles: Profile[];
+	userProfiles: Profile[] = [];
 	ngOnInit(): void {
     if(this.cookieService.get("currentProfile") != null){
         var tempProfile = JSON.parse(this.cookieService.get("currentProfile"));
@@ -48,31 +49,34 @@ export class ProfileComponent {
 		this.getAllUserProfiles(this.userData[0]['ssn']);
 		let user: User = new User(this.userData[0]['ssn'], null, null, null, null);
 		this.profile.setM_F("");
-		// this.profile.setProfileName("Summer 2018");
-		// this.profile.setAge(18);
-		// this.profile.setHobbies("Drawing, Music, Dancing");
-		// this.profile.setWeight(155);
-		// this.profile.setHeight(5.7);
-		// this.profile.setHairColor("Black");
-		// this.profile.setDatingGeoRange(10);
-		// this.profile.setDatingAgeRangeStart(18);
-		// this.profile.setDatingAgeRangeEnd(22);
-		// this.profile.setUser(user);
+		this.profile.setProfileName("Summer 2018");
+		this.profile.setAge(18);
+		this.profile.setHobbies("Drawing, Music, Dancing");
+		this.profile.setWeight(155);
+		this.profile.setHeight(5.7);
+		this.profile.setHairColor("Black");
+		this.profile.setDatingGeoRange(10);
+		this.profile.setDatingAgeRangeStart(18);
+		this.profile.setDatingAgeRangeEnd(22);
+		this.profile.setUser(user);
 	}
 	getAllUserAccounts(ssn: string): void {
-		this.accountService.getAccountsWithSSN(ssn).subscribe(response => this.updateUserHasNoAccounts(
+		this.accountService.getAccountsWithSSN(ssn).subscribe(response => this.updatesUserHasNoAccounts(
 			response));
 	}
 	getAllUserProfiles(ssn: string): void {
-		this.profileService.getProfilesWithSSN(ssn).subscribe(response => this.updateUserHasNoProfiles(
+		this.profileService.getProfilesWithSSN(ssn).subscribe(response => this.updatesUserHasNoProfiles(
 			response));
 	}
-	updateUserHasNoAccounts(response): void {
+	updatesUserHasNoAccounts(response): void {
 		this.userHasNoAccounts = response.object == null ? true : false;
 	}
-	updateUserHasNoProfiles(response): void {
+	updatesUserHasNoProfiles(response): void {
 		this.userHasNoProfiles = response.object == null ? true : false;
 		this.userProfiles = response.object;
+		if(this.userProfiles == null){
+			this.userProfiles = [];
+		}
 	}
 	onSubmit(form): void {
 		console.log("adding new profile\n");
@@ -82,9 +86,25 @@ export class ProfileComponent {
       this.profileService.saveProfile(this.profile, this.userData[0]['ssn']).subscribe(response => this
   			.showAlert(response, this.profile))
     }else{
+			this.createProfile(this.profile);
       this.profileService.addProfile(this.profile, this.userData[0]['ssn']).subscribe(response => this
   			.showAlert(response, this.profile))
     }
+	}
+	createProfile(profile){
+			var chars = ['a','b','c','d','e',
+		'f','g','h', 'i', 'j', 'k', 'l'];
+			var profileId = this.userData[0]['firstName'];
+			var profileName = profile.profileName.substring(0,6);
+			profileId += profileName;
+			for(var i = 0; i < 20 - profileId.length; i++) {
+				var rand = Math.floor((Math.random() * 1100)) % 11;
+				console.log(rand, "random");
+				console.log(chars[rand], "string");
+				profileId += chars[rand];
+			}
+			profile.profileId = profileId;
+			console.log(profileId);
 	}
 	showAlert(response, profile): void {
 		if (response.statusCode != 200) {
@@ -93,13 +113,20 @@ export class ProfileComponent {
 		} else {
       this.alertSuccess = true;
       if(this.editMode){
-        this.updateEditedProfile(this.profile);
+        this.updatesEditedProfile(this.profile);
         this.profile = new Profile();
         this.profile.setM_F("");
         this.alertMessage = "Sucessfully saved profile.";
       }else{
+				profile.lastModDate = new Date();
+				profile.user.person = this.userData[0];
+				console.log(profile, "wdf profile");
+				console.log(this.userProfiles, "empty user profiles");
         this.userProfiles.push(profile);
         this.alertMessage = "Sucessfully created profile.";
+				this.profile = new Profile();
+				this.profile.setM_F("");
+				this.userHasNoProfiles = false;
       }
 		}
 	}
@@ -143,7 +170,7 @@ export class ProfileComponent {
     this.alertSuccess = false;
 	}
 	activeProfileCheck(profile): boolean {
-		if (this.activeProfile.profileName === profile.profileName) {
+		if (this.activeProfile.profileId === profile.profileId) {
 			return true;
 		}
 		return false;
@@ -154,7 +181,7 @@ export class ProfileComponent {
 		}
 		return false;
 	}
-  updateEditedProfile(profile): void{
+  updatesEditedProfile(profile): void{
     this.userProfiles.filter(x => x.profileName == profile.profileName)[0].lastModDate = (new Date());
   }
   useProfile(profile): void{
@@ -162,11 +189,38 @@ export class ProfileComponent {
     this.activeProfile = profile;
     this.cookieService.putObject("currentProfile", profile);
   }
-  getBtnMessage(profile, type){
-    if (this.activeProfile.profileName === profile.profileName) {
-
-			return type ? "Editing Profile" : "Using Profile";
+  getBtnMessageActive(profile){
+    if (this.activeProfile.profileId === profile.profileId) {
+				return "Using";
 		}
-		return type ? "Edit Profile" : "Use Profile";
+		return "Use";
   }
+	getBtnMessageEdit(profile){
+    if (this.profile.profileId === profile.profileId) {
+				return "Editing";
+		}
+		return "Edit";
+  }
+	deleteProfile(){
+		this.profileService.deleteProfile(this.delProfile).subscribe(response => this.displayDeleteMsg(response));
+	}
+	displayDeleteMsg(response){
+		this.delToggle = true;
+		if(response.statusCode == 200){
+			this.delMessage = "Succesfuly deleted profile.";
+			for(var i = 0; i < this.userProfiles.length; i++){
+				if(this.userProfiles[i].profileId === this.delProfile.profileId){
+					this.userProfiles.splice(i, 1);
+				}
+			}
+			if(this.userProfiles.length === 0){
+				this.userHasNoProfiles = true;
+			}
+		}else{
+			this.delMessage = "Error deleting profile";
+		}
+	}
+	setDelProfile(profile){
+		this.delProfile = profile;
+	}
 }

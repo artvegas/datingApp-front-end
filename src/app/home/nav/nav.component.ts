@@ -12,19 +12,33 @@ export class HomeNavComponent {
   userLoggedIn = false;
   currentAccount = "None";
   currentProfile = "None";
+  managerIsLoggedIn = false;
   constructor(private router:Router, private cookieService: CookieService,
   private sharedService :SharedService){}
   ngOnInit() {
-      this.userLoggedIn = this.cookieService.get("session").match("true") ? true : false;
       this.sharedService.currentAccount.subscribe( value =>
           this.currentAccount = value
       );
       this.sharedService.userIsLoggedIn.subscribe( value =>
           this.userLoggedIn = value
       );
+      this.sharedService.managerIsLoggedIn.subscribe( value =>
+          this.managerIsLoggedIn = value
+      );
       this.sharedService.currentProfile.subscribe( value =>
           this.currentProfile = value
       );
+      if(this.cookieService.get("session") === "true"){
+        if(this.cookieService.get("managerOn") === "true"){
+          this.sharedService.managerIsLoggedIn.next(true);
+          this.sharedService.userIsLoggedIn.next(false);
+        }else{
+          this.sharedService.userIsLoggedIn.next(true);
+        }
+
+      }else{
+          this.sharedService.userIsLoggedIn.next(false);
+      }
       if(this.cookieService.get("currentProfile") != null){
           var tempProfile = JSON.parse(this.cookieService.get("currentProfile"));
           this.currentProfile = tempProfile.profileName;
@@ -33,12 +47,15 @@ export class HomeNavComponent {
           var tempAccount = JSON.parse(this.cookieService.get("currentAccount"));
           this.currentAccount = tempAccount.account.acctName;
       }
+      console.log(this.managerIsLoggedIn, "manager");
+      console.log(this.userLoggedIn, "user ");
     }
 
   logout(): void{
     console.log("logging out");
     this.cookieService.put("session", "false");
     this.userIsLoggedOut();
+    this.managerIsLoggedOut();
     console.log(this.userLoggedIn, "userLoggedIn");
     this.router.navigateByUrl('/signin');
   }
@@ -49,5 +66,8 @@ export class HomeNavComponent {
 
   userIsLoggedOut(){
     this.sharedService.userIsLoggedIn.next(false);
+  }
+  managerIsLoggedOut(){
+    this.sharedService.managerIsLoggedIn.next(false);
   }
 }

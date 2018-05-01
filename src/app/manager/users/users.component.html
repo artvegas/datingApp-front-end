@@ -1,0 +1,78 @@
+<div class="accounts">
+  <div class="row">
+    <div class="col-md-4 order-md-1">
+            <div class="account-form">
+              <div class="row header">
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(0)" [ngClass]="{'text-muted-2': !activePage(0)}">All Users</h4>
+                </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(1)" [ngClass]="{'text-muted-2': !activePage(1)}" >Most Active Users</h4>
+                </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(2)" [ngClass]="{'text-muted-2': !activePage(2)}" >Highest Rated Users</h4>
+                </div>
+              </div>
+              <br>
+
+
+            </div>
+    </div>
+    <div class="col-md-8 order-md-1">
+            <div class="account-form">
+              <h4 class="mb-3">Result</h4>
+              <div class="alert alert-success" *ngIf="reportAlert || reportWarning" [ngClass]="{'alert-warning': reportWarning}" role="alert">
+                Sucesfully generated User data.
+              </div>
+              <div *ngIf="displayUsers.length > 0" class="row data-box">
+                <div *ngFor="let user of displayUsers" class="col-sm-6 accCard">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{user.person.firstName}} {{user.person.lastName}} </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        User Type
+                      <button class="btn btn-outline-primary">{{user.ppp}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Rating
+                      <button class="btn btn-outline-primary">{{user.rating}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                       Street
+                      <button class="btn btn-outline-primary">{{user.person.street}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        City
+                      <button class="btn btn-outline-primary">{{user.person.city}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        State
+                      <button class="btn btn-outline-primary">{{user.person.state}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Zipcode
+                      <button class="btn btn-outline-primary">{{user.person.zipcode}}
+                      </button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Telephone
+                      <button class="btn btn-outline-primary">{{user.person.telephone}}</button>
+                      </li>
+                    </ul>
+                    <div class="card-footer text-muted">
+                      Last Active {{timeSince(user.dateOfLastAct)}} ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+    </div>
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,22 @@
+.accounts{
+  padding:5%;
+}
+
+.accCard{
+  margin-bottom:4%;
+}
+
+.btn-primary-s{
+  color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+}
+
+.text-muted-2{
+  color:rgba(0,0,0,.5);
+}
+
+.data-box{
+  overflow:auto;
+  height:500px;
+}

@@ -18,6 +18,7 @@ export class Profile {
   public user: User;
   public creationDate: Date;
   public lastModDate: Date;
+  public hobbiesList: string[];
 
   public setUser(user: User){
     this.user = user;

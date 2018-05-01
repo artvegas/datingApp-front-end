@@ -1,17 +1,17 @@
 <div class="search">
-  <div *ngIf="userHasNoAccounts">
+  <div *ngIf="currentProfileNull">
     <div class="jumbotron">
-      <h1 class="display-4">Hey, {{userData[0].firstName + " " + userData[0].lastName}}</h1>
-      <p class="lead">Looks like you haven't create an dating account yet. Click the button below to create an account so you start creating profiles and find dates!</p>
+      <h1 class="display-4">You have not selected a profile to use.</h1>
+      <p class="lead">You need to select a profile to search for other profiles.</p>
       <hr class="my-4">
-      <p>You will need your credit card information when creating a new account.</p>
+      <p>Create a profile by going to my profiles. Make sure to create an account first to create profiles.</p>
       <p class="lead">
         <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
       </p>
     </div>
   </div>
 
-  <div *ngIf="!userHasNoAccounts">
+  <div *ngIf="!currentProfileNull">
     <div class="row">
       <div class="col-md-4 order-md-1">
               <div class="account-form">
@@ -28,7 +28,7 @@
                 </div>
 
                 <div class="alert alert-success" *ngIf="alertSuccess" role="alert">
-                  {{alertMessage}} {{profileCount}} matches found.
+               {{profileCount}} matches found.
                 </div>
 
                 <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
@@ -39,18 +39,9 @@
                     <br><br>
 
                     <div class="col-sm-12">
-                      <label for="age">Age</label>
-                      <input type="text" class="form-control" id="age"
-                      [(ngModel)]="profile.age" name="age" placeholder="Age">
-                      <div class="invalid-feedback">
-                        Please enter an age.
-                      </div>
-                    </div>
-
-                    <div class="col-sm-12">
                       <label for="m_f">Gender</label>
                       <select class="custom-select d-block w-100" id="m_f"
-                      [(ngModel)]="profile.m_f" name="m_f" >
+                      [(ngModel)]="profile.m_f" name="m_f">
                         <option value="">Choose...</option>
                         <option>Male</option>
                         <option>Female</option>
@@ -64,7 +55,7 @@
                     <div class="col-sm-12">
                       <label for="age">Weight</label>
                       <input type="text" class="form-control" id="weight"
-                      [(ngModel)]="profile.weight" name="weight" placeholder="120" >
+                      [(ngModel)]="profile.weight" name="weight" placeholder="Weight" >
                       <div class="invalid-feedback">
                         Please enter a weight.
                       </div>
@@ -73,7 +64,7 @@
                     <div class="col-sm-12">
                       <label for="age">Height</label>
                       <input type="text" class="form-control" id="height"
-                      [(ngModel)]="profile.height" name="height" placeholder="5.7" >
+                      [(ngModel)]="profile.height" name="height" placeholder="Height" >
                       <div class="invalid-feedback">
                         Please enter a height.
                       </div>
@@ -82,7 +73,7 @@
                     <div class="col-sm-12">
                       <label for="age">Hair Color</label>
                       <input type="text" class="form-control" id="hairColor"
-                      [(ngModel)]="profile.hairColor" name="hairColor" placeholder="Black" >
+                      [(ngModel)]="profile.hairColor" name="hairColor" placeholder="Hair Color" >
                       <div class="invalid-feedback">
                         Please enter a hair color.
                       </div>
@@ -91,14 +82,56 @@
                     <div class="col-sm-12">
                       <label for="age">Hobbies</label>
                       <textarea type="textarea" class="form-control" id="hobbies"
-                      [(ngModel)]="profile.hobbies" name="hobbies" placeholder="Painting, Drawing.." ></textarea>
+                      [(ngModel)]="profile.hobbies" name="hobbies" placeholder="Hobbies" ></textarea>
                       <div class="invalid-feedback">
                         Please enter hobbies.
                       </div>
                     </div>
 
                   </div>
+
+                  <div class="mb-3 row">
+                    <label for="age" class="col-sm-12 h5">Location</label>
+                    <br><br>
+
+                    <div class="col-sm-12">
+                      <label for="state">Street</label>
+                      <input type="text" class="form-control" id="street"
+                      [(ngModel)]="profile.user.person.street" name="street" placeholder="Street" >
+                      <div class="invalid-feedback">
+                        Please enter a street
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="city">City</label>
+                      <input type="text" class="form-control" id="city"
+                      [(ngModel)]="profile.user.person.city" name="city" placeholder="City" >
+                      <div class="invalid-feedback">
+                        Please enter a city
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="state">State</label>
+                      <input type="text" class="form-control" id="state"
+                      [(ngModel)]="profile.user.person.state" name="state" placeholder="State" >
+                      <div class="invalid-feedback">
+                        Please enter a state
+                      </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                      <label for="zipcode">Zipcode</label>
+                      <input type="text" class="form-control" id="zipcode"
+                      [(ngModel)]="profile.user.person.zipcode" name="zipcode" placeholder="Zipcode" >
+                      <div class="invalid-feedback">
+                        Please enter a zipcode
+                      </div>
+                    </div>
+                  </div>
                   <br>
+
 
                   <div class="mb-3 row">
                     <label for="age" class="col-sm-12 h5">Dating Age Range</label>
@@ -129,7 +162,7 @@
                   <div class="mb-3 ">
                     <div class="card">
                       <div class="card-body">
-                        <i>Dating Geo Range</i> and <i>Dating Age Range</i> has been
+                        <i>Dating Geo Range</i> and <i>Dating Age Range</i> have been
                           automatically set by your profile data.
                       </div>
                     </div>
@@ -143,11 +176,9 @@
       <div class="col-md-8 order-md-1">
               <div class="account-form">
                 <h4 class="mb-3">Profiles</h4>
-                <div class="alert alert-success" *ngIf="true" role="alert">
-                  Profiles matched by age, gender, hair color and hobbies.
-                </div>
+
                 <br>
-                <div *ngIf="!foundProfiles">
+                <div *ngIf="foundProfiles.length == 0 && !profileToggle">
                   <div class="jumbotron">
                     <h1 class="display-4">No Matches found.</h1>
                     <p class="lead">Looks like there aren't any profiles which match your desired characteristics.
@@ -157,7 +188,7 @@
                   </div>
                 </div>
 
-                <div *ngIf="!profileToggle">
+                <div *ngIf="profileToggle">
                   <div class="jumbotron">
                     <h1 class="display-4">Search to find matches.</h1>
                     <p class="lead">Use the search dashboard to look for matches which meet your requirments.</p>
@@ -176,13 +207,33 @@
                        <div class="card-body">
                          <h5 class="card-title">{{profile.user.person.firstName}} {{profile.user.person.lastName}}, {{profile.age}}</h5>
                        </div>
-                       <ul class="list-group list-group-flush">
-                         <li class="list-group-item">Lives in {{profile.user.person.city}}, {{profile.user.person.state}}</li>
-                         <li class="list-group-item">Rated {{profile.user.rating}}</li>
-                         <li class="list-group-item">Hobbies include {{profile.hobbies}}</li>
-                       </ul>
+                           <ul class="list-group list-group-flush">
+                             <li class="list-group-item">
+                               <div class="row">
+                                 <div class="col-sm-8">
+                                   <div class="progress">
+                                      <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" [style.width]="profile.user.ratingPercentage" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                                   </div>
+                                 </div>
+                                 <div class="col-sm-4 profileData">
+                                   <h5>{{profile.user.ratingPercentage}} Rating</h5>
+                                 </div>
+                               </div>
+                             </li>
+                             <li class="list-group-item d-flex justify-content-between align-items-center">
+                              Located
+                              <button class="btn btn-dark">{{profile.user.person.city}}, {{profile.user.person.state}}</button>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                             Gender
+                             <button class="btn btn-dark">{{profile.m_f}}</button>
+                           </li>
+                            <li class="list-group-item">
+                              <button *ngFor="let hobbie of profile.hobbiesList"  type="button" class="btn btn-outline-primary hobbies" [ngClass]="{'btn-primary-s' : activeHobbiesCheck(hobbie)}">{{hobbie}}</button>
+                            </li>
+                           </ul>
                       <div class="card-footer">
-                        <button (click)="useProfile(profile)" style="" class="btn btn-primary">View Profile</button>
+                        <button  type="button" class="btn btn-primary" (click)="userProfile(profile)" data-toggle="modal" data-target="#profileModal" style="" class="btn btn-outline-primary">View Complete Profile</button>
                       </div>
                     </div>
                   </div>
@@ -192,5 +243,132 @@
       </div>
     </div>
   </div>
+
+
+    <div class="modal fade bd-example-modal-lg" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLongTitle">{{activeProfile.user.person.firstName}} {{activeProfile.user.person.lastName}}, {{activeProfile.age}}</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container-fluid">
+              <div class="row"  *ngIf="setUpDatesOn">
+                <div class="col-md-12 order-md-1" *ngIf="checkIfUserSentDatesRequestAlready(activeProfile)">
+                  <div class="card datesForm">
+                    <div class="mb-3">
+                      <div class="alert alert-success" role="alert">
+                          You have already sent this person a dates request.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 order-md-1" *ngIf="!checkIfUserSentDatesRequestAlready(activeProfile)">
+                  <div class="card datesForm">
+
+                    <div class="mb-3">
+                      <h4 class="mb-3">Create Dates</h4>
+                    </div>
+
+                    <div class="alert alert-success" *ngIf="datingAlert" [ngClass]="{'alert-warning': datingWarning}" role="alert">
+                      {{datingAlertMsg}}
+                    </div>
+
+                    <form class="needs-validation"  (ngSubmit)="submitDateFrom(datesForm)" #datesForm="ngForm" >
+
+                      <div class="mb-3">
+                        <label for="email">Dates location</label>
+                        <select class="custom-select d-block w-100" id="locatin"
+                        [(ngModel)]="date.location" name="location" required>
+                          <option value="">Choose...</option>
+                          <option>Cheese Cake Factory</option>
+                          <option>Starbucks</option>
+                          <option>McDonald</option>
+                        </select>
+                        <div class="invalid-feedback" *ngIf="ccAlert">
+                          Please choose a location.
+                        </div>
+                      </div>
+
+                      <div class="mb-3">
+                        <label for="time">Dates Time</label>
+                        <input type="datetime-local" class="form-control" id="time"
+                        [(ngModel)]="date.dateTime" name="time" placeholder="" required>
+                        <div class="invalid-feedback">
+                          Please enter a time.
+                        </div>
+                      </div>
+                      <br>
+                      <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!datesForm.form.valid">Create Date</button>
+                    </form>
+                 </div>
+                </div>
+              </div>
+
+              <div class="row"  *ngIf="!setUpDatesOn">
+                <div class="col-sm-4"><div class="profilePictureDiv"></div>
+                </div>
+                <div class="col-sm-8">
+                  <div class="card  mb-3">
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-8">
+                          <div class="progress">
+                             <div class="progress-bar bg-info progress-bar-striped progress-bar-animated" role="progressbar" [style.width]="activeProfile.user.ratingPercentage" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                        </div>
+                        <div class="col-sm-4 profileData">
+                          <h5>{{activeProfile.user.ratingPercentage}} Rating</h5>
+                        </div>
+                      </div>
+                    </div>
+                     <ul class="list-group list-group-flush">
+                       <li class="list-group-item">
+                         <div class="card">
+                             <ul class="list-group list-group-flush">
+                               <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Located
+                                <button class="btn btn-dark">{{activeProfile.user.person.city}}, {{activeProfile.user.person.state}}</button>
+                              </li>
+                               <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Age
+                                <button class="btn btn-dark">{{activeProfile.age}} years old</button>
+                              </li>
+                              <li class="list-group-item d-flex justify-content-between align-items-center">
+                               Gender
+                               <button class="btn btn-dark">{{activeProfile.m_f}}</button>
+                               <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Hair Color
+                                <button class="btn btn-dark">{{activeProfile.hairColor}}</button>
+                              <li class="list-group-item d-flex justify-content-between align-items-center">
+                               Weight
+                               <button class="btn btn-dark">{{activeProfile.weight}} lbs</button>
+                               </li>
+                               <li class="list-group-item d-flex justify-content-between align-items-center">
+                                Height
+                                <button class="btn btn-dark">{{activeProfile.height}} feet</button>
+                              </li>
+                             </ul>
+                         </div>
+                       </li>
+                       <li class="list-group-item">
+                         <button *ngFor="let hobbie of activeHobbiesList"  type="button" class="btn btn-outline-primary hobbies" [ngClass]="{'btn-primary-s' : activeHobbiesCheck(hobbie)}">{{hobbie}}</button>
+                       </li>
+                     </ul>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+              <button type="button" class="btn btn-outline-primary" (click)="likeProfile(activeProfile)" [ngClass]="{'btn-primary-s': likedButtonCheck(activeProfile)}">{{likedButtonMsg(activeProfile)}}</button>
+              <button type="button" class="btn btn-outline-primary" (click)="setUpDatesToggle()">{{setUpBtnMsg}}</button>
+         </div>
+       </div>
+      </div>
+    </div>
 
 </div>

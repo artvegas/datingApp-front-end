@@ -52,3 +52,17 @@
 .header{
   margin-bottom:10px;
 }
+.btn-primary-s{
+  color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+}
+.btn-dark-s{
+  color: #fff;
+background-color: #343a40;
+border-color: #343a40;
+}
+
+.hobbies{
+  margin:4px;
+}

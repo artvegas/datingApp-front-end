@@ -1,11 +1,12 @@
 export class AccountId {
 
   constructor(
-    private cardNumber: string,
-    private acctNum: string,
-    private acctName: string
   ) {  }
 
+  public cardNumber: string;
+  public acctNum: string;
+  public acctName: string;
+  
   getAcctName(): string{
     return this.acctName;
   }

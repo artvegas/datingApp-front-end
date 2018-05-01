@@ -27,6 +27,7 @@ constructor( private http: HttpClient){}
    private getAllUrl = this.baseUrl + "all"; // URL to web api
    private addPersonUrl = this.baseUrl + "add";
    private loginUrl = this.baseUrl + "login";
+   private loginManagerUrl = this.loginUrl + "/manager";
 
    getAllPerson (): Observable<Person[]> {
     return this.http.get<Person[]>(this.getAllUrl)
@@ -51,6 +52,14 @@ constructor( private http: HttpClient){}
       catchError(this.handleError<Person>('logged in'))
   );
  }
+
+ loginManager (person: Person): Observable<Person> {
+   console.log(person, "person");
+   return this.http.post<Person>(this.loginManagerUrl, person, httpOptions).pipe(
+     tap((person: Person) => this.log(`logged in person ${person}`)),
+     catchError(this.handleError<Person>('logged in'))
+ );
+}
 
 
 

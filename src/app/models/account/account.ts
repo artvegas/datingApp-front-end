@@ -3,8 +3,9 @@ import { User } from "../user/user";
 export class Account {
 
   constructor(
-    private account: AccountId,
-    private user: User
   ) {  }
+
+  public account: AccountId;
+  public user: User;
 
 }

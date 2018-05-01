@@ -3,11 +3,11 @@ import { Person } from "../person/person"
 export class User {
 
   constructor(
-    private ssn: string,
-    private person: Person,
-    private ppp: string,
-    private rating: number,
-    private dateOfLastAct: Date
+    public ssn: string,
+    public person: Person,
+    public ppp: string,
+    public rating: number,
+    public dateOfLastAct: Date
   ) {  }
 
   setSSN(ssn: string): void{

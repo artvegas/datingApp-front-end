@@ -34,6 +34,7 @@ export class SignInComponent {
       this.alertMessage = response.status;
     }else{
       this.cookieService.putObject("userData", response.object);
+        
       this.cookieService.put("session", "true");
       this.userIsLoggedIn();
       this.router.navigateByUrl('/profile');

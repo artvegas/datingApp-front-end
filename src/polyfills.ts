@@ -8,7 +8,7 @@
  *      file.
  *
  * The current setup is for so-called "evergreen" browsers; the last versions of browsers that
- * automatically update themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
+ * automatically updates themselves. This includes Safari >= 10, Chrome >= 55 (including Opera),
  * Edge >= 13 on the desktop, and iOS 10 and Chrome on mobile.
  *
  * Learn more in https://angular.io/docs/ts/latest/guide/browser-support.html
@@ -27,7 +27,7 @@
 // import 'core-js/es6/number';
 // import 'core-js/es6/math';
 // import 'core-js/es6/string';
-// import 'core-js/es6/date';
+// import 'core-js/es6/dates';
 // import 'core-js/es6/array';
 // import 'core-js/es6/regexp';
 // import 'core-js/es6/map';

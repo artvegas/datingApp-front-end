@@ -26,6 +26,8 @@ constructor( private http: HttpClient){}
    private baseUrl = "http://localhost:8080/accounts/";
    private getAllUrl = this.baseUrl + "all"; // URL to web api
    private addAccountUrl = this.baseUrl + "add";
+   private deleteAccountUrl = this.baseUrl + "delete";
+   private saveAccountUrl = this.baseUrl + "save";
 
    getAllAccount (): Observable<Account[]> {
     return this.http.get<Account[]>(this.getAllUrl)
@@ -40,8 +42,19 @@ constructor( private http: HttpClient){}
     return this.http.post<Account>(this.addAccountUrl, account, httpOptions).pipe(
     tap((account: Account) => this.log(`added account ${account}`)),
     catchError(this.handleError<Account>('addAccount'))
-  );
-}
+  )}
+
+  editAccount (account: Account): Observable<Account> {
+    return this.http.post<Account>(this.saveAccountUrl, account, httpOptions).pipe(
+    tap((account: Account) => this.log(`saveAccount ${account}`)),
+    catchError(this.handleError<Account>('saveAccount'))
+  )}
+
+  deleteAccount (account: Account): Observable<Account> {
+    return this.http.post<Account>(this.deleteAccountUrl, account, httpOptions).pipe(
+    tap((account: Account) => this.log(`deleteAccount ${account}`)),
+    catchError(this.handleError<Account>('deleteAccount'))
+  )}
 
 
 
