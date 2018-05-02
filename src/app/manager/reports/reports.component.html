@@ -51,6 +51,16 @@
               <div class="alert alert-success" *ngIf="reportAlert || reportWarning" [ngClass]="{'alert-warning': reportWarning}" role="alert">
                 {{reportMsg}}
               </div>
+
+              <div *ngIf="reports.length == 0 && loaded">
+                <div class="jumbotron">
+                  <h1 class="display-4">No Sales Report found.</h1>
+                  <p class="lead">Either you have not yet submited a query get report or there is no data in the database for given parameters.</p>
+                  <hr class="my-4">
+
+                </div>
+              </div>
+
               <div *ngIf="reports.length > 0" class="row">
                 <div *ngFor="let report of reports" class="col-sm-6 accCard">
                   <div class="card">

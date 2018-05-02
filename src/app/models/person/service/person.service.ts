@@ -28,8 +28,9 @@ constructor( private http: HttpClient){}
    private addPersonUrl = this.baseUrl + "add";
    private loginUrl = this.baseUrl + "login";
    private loginManagerUrl = this.loginUrl + "/manager";
+   private loginCustRepUrl = this.loginUrl + "/custRep";
 
-   getAllPerson (): Observable<Person[]> {
+   getAllPersons (): Observable<Person[]> {
     return this.http.get<Person[]>(this.getAllUrl)
   }
 
@@ -59,6 +60,14 @@ constructor( private http: HttpClient){}
      tap((person: Person) => this.log(`logged in person ${person}`)),
      catchError(this.handleError<Person>('logged in'))
  );
+}
+
+loginCustRep (person: Person): Observable<Person> {
+  console.log(person, "person");
+  return this.http.post<Person>(this.loginCustRepUrl, person, httpOptions).pipe(
+    tap((person: Person) => this.log(`logged in person ${person}`)),
+    catchError(this.handleError<Person>('logged in'))
+);
 }
 
 

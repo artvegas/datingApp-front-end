@@ -11,11 +11,11 @@ import { Observable } from 'rxjs/Observable';
 import { SharedService } from '../../active/service/shared.service';
 
 @Component({
-  selector: 'dates-stats',
-  templateUrl: './dates.component.html',
-  styleUrls: ['./dates.component.css']
+  selector: 'reveune-stats',
+  templateUrl: './reveune.component.html',
+  styleUrls: ['./reveune.component.css']
 })
-export class DatesStatsComponent {
+export class RevenueComponent {
   constructor(private accountService: AccountService, private cookieService: CookieService,
   private sharedService : SharedService, private reportService: ReportService){}
   userData = "";
@@ -42,17 +42,32 @@ export class DatesStatsComponent {
   calenderDates = [];
   highestDay = null;
   loaded = false;
+  bestUser = null;
+  bestCustRep = null;
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
-    this.reportService.getHighestCalenderDayForDate().subscribe(
-      response => this.updateCalenderDates(response)
+    this.reportService.getHighestRevenueUser().subscribe(
+      response => this.updatedHighestRevenueUser(response)
+    )
+    this.reportService.getHighestRevenueCustRep().subscribe(
+      response => this.updatedHighestRevenueCustRep(response)
     )
   }
 
-  updateCalenderDates(response){
+  updatedHighestRevenueUser(response){
     if(response.statusCode === 200){
-      this.highestDay = response.object[0];
       this.loaded = true;
+      this.bestUser = response.object[0];
+    }else{
+      this.reportWarning  = true;
+      this.reportMsg = "Error generating required dates";
+    }
+  }
+
+  updatedHighestRevenueCustRep(response){
+    if(response.statusCode === 200){
+      this.loaded = true;
+      this.bestCustRep = response.object[0];
     }else{
       this.reportWarning  = true;
       this.reportMsg = "Error generating required dates";
@@ -71,9 +86,16 @@ export class DatesStatsComponent {
     this.reportWarning = false;
     this.reportMsg = "";
     if(type == 2){
-      if(this.highestDay){
+      if(this.bestUser){
         this.reportAlert = true;
-        this.reportMsg = "Succesfuly generated required highest rated day for dates.";
+        this.reportMsg = "Succesfuly generated highest revenue generating User.";
+      }
+    }
+
+    if(type == 3){
+      if(this.bestCustRep){
+        this.reportAlert = true;
+        this.reportMsg = "Succesfuly generated highest revenue generating Customer Rep.";
       }
     }
 

@@ -33,7 +33,7 @@ export class SignUpComponent {
 
 getPersons(): void {
   console.log(this.personService);
-  this.personService.getAllPerson().subscribe(persons => this.persons = persons);
+  this.personService.getAllPersons().subscribe(persons => this.persons = persons);
 }
 
 onSubmit(form) : void {

@@ -1,0 +1,282 @@
+<div class="profile">
+  <div *ngIf="allEmployees.length == 0 && loaded">
+    <div class="jumbotron">
+      <h1 class="display-4">No Employees found in system.</h1>
+      <p class="lead">Currently there are no employees in the database.</p>
+      <hr class="my-4">
+      <p>Check server to see if this is a internal error or database has no employees.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
+      </p>
+    </div>
+  </div>
+
+  <div *ngIf="!userHasNoAccounts">
+    <div class="row">
+
+
+
+      <div class="col-md-4 order-md-1">
+        <div class="row header">
+          <div class="col-sm-8">
+            <h4 class="sm-8">{{dashboardMessage}}</h4>
+          </div>
+          <div class="col-sm-4">
+            <button type="button" *ngIf="editMode" (click)="doneEditing()"
+            class="btn btn-outline-danger edit">Close Editing</button>
+          </div>
+        </div>
+
+        <div class="alert alert-success" *ngIf="alertShow || alertWarning" [ngClass]="{'alert-warning': alertWarning}" role="alert">
+          {{alertMessage}}
+        </div>
+
+
+
+        <div class="account-form">
+          <h4 class="mb-3">Personal Information</h4>
+          <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">First name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First Name" value=""
+                [(ngModel)]="employee.person.firstName" name="firstName" #firstName="ngModel" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="First Name" value=""
+                 [(ngModel)]="employee.person.lastName" name="lastName"required>
+                <div class="invalid-feedback">
+                  Valid last name is required.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="password">Password</label>
+              <div class="input-group">
+                <input type="password" class="form-control" id="password" placeholder="Password"
+                 [(ngModel)]="employee.person.password" name="password" required>
+                <div class="invalid-feedback" style="width: 100%;">
+                  Your password is required.
+                </div>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" id="email"
+              [(ngModel)]="employee.person.email" name="email" [pattern]="emailPattern" placeholder="you@example.com" required>
+              <div class="invalid-feedback">
+                Please enter a valid email address.
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="telephone">Phone</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="telephone" placeholder="XXX-XXX-XXXX"
+                [(ngModel)]="employee.person.telephone" name="telephone" #tel="ngModel" [pattern]="phonePattern" required>
+                <div [hidden]="tel.valid || tel.pristine" class="alert alert-danger" style="width: 100%;">
+                  Your phone number should be formatted as XXX-XXX-XXXX.
+                </div>
+              </div>
+            </div>
+
+
+
+            <div class="mb-3">
+              <label for="ssn">SSN (Social Secruity Number)</label>
+              <div class="input-group">
+                <input type="text" class="form-control" id="ssn" placeholder="XXX-XX-XXXX"
+                [(ngModel)]="employee.person.ssn" name="ssn" #ssn="ngModel" [pattern]="ssnPattern" required>
+                <div [hidden]="ssn.valid || ssn.pristine" class="alert alert-danger" style="width: 100%;">
+                  Your SSN should be formatted as XXX-XX-XXXX.
+                </div>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="address">Address</label>
+              <input type="text" class="form-control" id="street" placeholder="1234 Main St"
+              [(ngModel)]="employee.person.street" name="Address" required>
+              <div class="invalid-feedback">
+                Please enter your address.
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 mb-2">
+                <label for="city">State</label>
+                <input type="text" class="form-control" id="state" placeholder="State"
+                [(ngModel)]="employee.person.state" name="state" required>
+                <div class="invalid-feedback">
+                  Please provide a state.
+                </div>
+              </div>
+              <div class="col-md-4 mb-2">
+                <label for="city">City</label>
+                <input type="text" class="form-control" id="city" placeholder="City"
+                [(ngModel)]="employee.person.city" name="city" required>
+                <div class="invalid-feedback">
+                  Please provide a city.
+                </div>
+              </div>
+              <div class="col-md-4 mb-2">
+                <label for="zip">Zip</label>
+                <input type="text" class="form-control" id="zip" placeholder="Zipcode"
+                [(ngModel)]="employee.person.zipcode" name="zipcode" required>
+                <div class="invalid-feedback">
+                  Zip code required.
+                </div>
+              </div>
+            </div>
+            <br>
+
+              <h4 class="mb-3">Job Information</h4>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+
+                  <label for="city">Hourly Rate</label><br>
+
+                  <input type="text" class="form-control" id="hourlyRate" placeholder="Hourly Rate"
+                  [(ngModel)]="employee.hourlyRate" name="hourlyRate" required>
+
+                  <div class="invalid-feedback">
+                    Please provide a hourly rate.
+                  </div>
+                </div>
+                <div class="input-group col-md-6 mb-2">
+                  <label for="rating">Role</label>
+                  <select class="custom-select d-block w-100" id="rating"
+                  [(ngModel)]="employee.role" name="rating" required>
+                    <option value="0">Choose...</option>
+                    <option value="Manager">Manager</option>
+                    <option value="CustRep">Customer Representative</option>
+                  </select>
+                </div>
+
+              </div>
+              <div class="row">
+                <div class="col-md-12 mb-2">
+                  <label for="zip">Start Date</label>
+                  <input type="datetime-local" class="form-control" id="startDate" placeholder=""
+                  [(ngModel)]="employee.startDate" name="startDate" required>
+                  <div class="invalid-feedback">
+                    Start Date required.
+                  </div>
+                </div>
+              </div>
+              <br>
+            <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid" >{{dashboardBtnMessage}}</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-md-8 order-md-1">
+              <div class="account-form">
+                <h4 class="mb-3">Employees</h4>
+
+                <div *ngIf="userHasNoProfiles">
+                  <div class="jumbotron">
+                    <h1 class="display-4">No Profiles.</h1>
+                    <p class="lead">Looks like you haven't any profiles yet. account yet.
+                    Create a new profile to start finding matches!</p>
+                    <hr class="my-4">
+                    <p>You can create as many profiles as you like.</p>
+                  </div>
+                </div>
+
+                <div class="alert alert-warning" *ngIf="ccAlert" role="alert">
+                  Please enter a valid credit-card number
+                </div>
+
+                <div *ngIf="allEmployees.length > 0" class="row card-columns">
+                  <div *ngFor="let employee of allEmployees" class="col-sm-6">
+                    <div class="card">
+                       <div [ngClass]="{'bg-primary text-white' : activeEmployeeCheck(employee)}" class="card-body">
+                         <h5 class="card-title">{{employee.person.firstName}} {{employee.person.lastName}}</h5>
+                       </div>
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Role
+                        <button class="btn btn-outline-primary">{{employee.role}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          SSN
+                        <button class="btn btn-outline-primary">{{employee.person.ssn}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Email
+                        <button class="btn btn-outline-primary">{{employee.person.email}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Telephone
+                        <button class="btn btn-outline-primary">{{employee.person.telephone}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Street
+                        <button class="btn btn-outline-primary">{{employee.person.street}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         City
+                        <button class="btn btn-outline-primary">{{employee.person.city}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         State
+                        <button class="btn btn-outline-primary">{{employee.person.state}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Zipcode
+                        <button class="btn btn-outline-primary">{{employee.person.zipcode}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Hourly Rate
+                        <button class="btn btn-outline-primary">$ {{employee.hourlyRate}}</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                          Start Date
+                        <button class="btn btn-outline-primary">{{getDate(employee.startDate)}}</button>
+                        </li>
+                      </ul>
+                      <div class="card-footer">
+
+                        <button (click)="editEmployee(employee)" class="btn btn-outline-primary" [ngClass]="{'btn-primary-s' : editEmployeeCheck(employee)}">{{getBtnMessageEdit(employee)}}</button>
+                        <button (click)="setDelEmployee(employee)" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteMod" >Delete</button>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="deleteMod" tabindex="-1" role="dialog" aria-labelledby="DeleteModual" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Deleting Employee</h5>
+        <button type="button" (click)="delToggle = false; delMessage = ''" class="close"  data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="!delToggle">
+            Are you sure you want to delete this employee?
+        </div>
+        <div class="alert alert-success" *ngIf="delToggle || delWarning" [ngClass]="{'alert-warning': delWarning}" role="alert">
+          {{delMessage}}
+        </div>
+      </div>
+      <div *ngIf="!delToggle" class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+        <button type="button" (click)="deleteEmployee()" class="btn btn-primary">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

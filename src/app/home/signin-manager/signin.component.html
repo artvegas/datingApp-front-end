@@ -9,6 +9,16 @@
             <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
 
               <div class="mb-3">
+                <label for="rating">Role</label>
+                <select class="custom-select d-block w-100" id="rating"
+                [(ngModel)]="role" name="rating" required>
+                  <option value="0">Choose...</option>
+                  <option value="1">Manager</option>
+                  <option value="2">Customer Representative</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
                 <label for="email">Email</label>
                 <input type="email" class="form-control" id="email"
                 [(ngModel)]="model.email" name="email" [pattern]="emailPattern" placeholder="you@example.com" required>

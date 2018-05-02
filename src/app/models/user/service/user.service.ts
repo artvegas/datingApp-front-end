@@ -26,8 +26,10 @@ constructor( private http: HttpClient){}
    private baseUrl = "http://localhost:8080/users/";
    private getAllUrl = this.baseUrl + "all"; // URL to web api
    private addUserUrl = this.baseUrl + "add";
+   private saveUserUrl = this.baseUrl + "update";
+   private deleteUserUrl = this.baseUrl + "delete";
 
-   getALlUsers (): Observable<User[]> {
+   getAllUsers (): Observable<User[]> {
     return this.http.get<User[]>(this.getAllUrl)
   }
 
@@ -42,6 +44,22 @@ constructor( private http: HttpClient){}
     catchError(this.handleError<User>('addUser'))
   );
 }
+  saveUser (user: User): Observable<User> {
+    console.log(user, "user");
+    return this.http.post<User>(this.saveUserUrl, user, httpOptions).pipe(
+    tap((user: User) => this.log(`added user ${user}`)),
+    catchError(this.handleError<User>('addUser'))
+  );
+}
+
+deleteUser (user: User): Observable<User> {
+  console.log(user, "user");
+  return this.http.post<User>(this.deleteUserUrl, user, httpOptions).pipe(
+  tap((user: User) => this.log(`added user ${user}`)),
+  catchError(this.handleError<User>('addUser'))
+);
+}
+
 
 
 

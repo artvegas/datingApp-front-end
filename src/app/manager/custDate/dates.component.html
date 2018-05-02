@@ -1,0 +1,257 @@
+<div class="accounts">
+  <div class="row">
+    <div class="col-md-4 order-md-1">
+            <div class="account-form">
+              <div class="row header">
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(0)" [ngClass]="{'text-muted-2': !activePage(0)}">Suggest Date</h4>
+                </div>
+              </div>
+              <br>
+
+
+                              <form class="needs-validation" (ngSubmit)="onSubmit(signupForm)" #signupForm="ngForm" >
+                                <br>
+
+                                <div class="mb-3 row">
+                                  <label for="age" class="col-sm-12 h5">Dating Age Range</label>
+                                  <br>
+                                    <div class="col-sm-6">
+                                      <label for="">Start</label>
+                                      <input type="text" class="form-control" id="datingAgeRangeStart"
+                                      [(ngModel)]="profile.datingAgeRangeStart" name="datingAgeRangeStart" placeholder="Start Age" required >
+                                    </div>
+                                    <div class="col-sm-6">
+                                      <label for="email">End</label>
+                                      <input type="text" class="form-control" id="datingAgeRangeEnd"
+                                      [(ngModel)]="profile.datingAgeRangeEnd" name="datingAgeRangeEnd" placeholder="End Age" required >
+                                    </div>
+                                </div>
+
+                                <div class="mb-3 row">
+
+                                  <label for="age" class="col-sm-12 h5">Physical Characteristics</label>
+                                  <br><br>
+
+                                  <div class="col-sm-12">
+                                    <label for="m_f">Gender</label>
+                                    <select class="custom-select d-block w-100" id="m_f"
+                                    [(ngModel)]="profile.m_f" name="m_f">
+                                      <option value="">Choose...</option>
+                                      <option>Male</option>
+                                      <option>Female</option>
+                                      <option>Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                      Please pick a gender.
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="age">Weight</label>
+                                    <input type="text" class="form-control" id="weight"
+                                    [(ngModel)]="profile.weight" name="weight" placeholder="Weight" >
+                                    <div class="invalid-feedback">
+                                      Please enter a weight.
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="age">Height</label>
+                                    <input type="text" class="form-control" id="height"
+                                    [(ngModel)]="profile.height" name="height" placeholder="Height" >
+                                    <div class="invalid-feedback">
+                                      Please enter a height.
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="age">Hair Color</label>
+                                    <input type="text" class="form-control" id="hairColor"
+                                    [(ngModel)]="profile.hairColor" name="hairColor" placeholder="Hair Color" >
+                                    <div class="invalid-feedback">
+                                      Please enter a hair color.
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="age">Hobbies</label>
+                                    <textarea type="textarea" class="form-control" id="hobbies"
+                                    [(ngModel)]="profile.hobbies" name="hobbies" placeholder="Hobbies" ></textarea>
+                                    <div class="invalid-feedback">
+                                      Please enter hobbies.
+                                    </div>
+                                  </div>
+
+                                </div>
+
+                                <div class="mb-3 row">
+                                  <label for="age" class="col-sm-12 h5">Location</label>
+                                  <br><br>
+
+                                  <div class="col-sm-12">
+                                    <label for="state">Street</label>
+                                    <input type="text" class="form-control" id="street"
+                                    [(ngModel)]="profile.user.person.street" name="street" placeholder="Street" >
+                                    <div class="invalid-feedback">
+                                      Please enter a street
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="city">City</label>
+                                    <input type="text" class="form-control" id="city"
+                                    [(ngModel)]="profile.user.person.city" name="city" placeholder="City" >
+                                    <div class="invalid-feedback">
+                                      Please enter a city
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="state">State</label>
+                                    <input type="text" class="form-control" id="state"
+                                    [(ngModel)]="profile.user.person.state" name="state" placeholder="State" >
+                                    <div class="invalid-feedback">
+                                      Please enter a state
+                                    </div>
+                                  </div>
+
+                                  <div class="col-sm-12">
+                                    <label for="zipcode">Zipcode</label>
+                                    <input type="text" class="form-control" id="zipcode"
+                                    [(ngModel)]="profile.user.person.zipcode" name="zipcode" placeholder="Zipcode" >
+                                    <div class="invalid-feedback">
+                                      Please enter a zipcode
+                                    </div>
+                                  </div>
+                                </div>
+                                <br>
+
+
+
+                                <br>
+
+
+                                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
+                              </form>
+
+
+
+            </div>
+    </div>
+    <div class="col-md-8 order-md-1">
+            <div class="account-form">
+              <h4 class="mb-3">Dashboard</h4>
+
+              <div class="alert alert-success" *ngIf="alertShow || alertWarning" [ngClass]="{'alert-warning': alertWarning}" role="alert">
+               {{alertMsg}}
+              </div>
+
+
+              <form class="col-md-12" class="needs-validation" *ngIf="activePage(0)" (ngSubmit)="addSuggestion(suggestionForm)" #suggestionForm="ngForm" >
+
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="mb-3">
+                      <label for="email">Profile One</label>
+                      <input type="text" class="form-control" id="profile1"
+                      [(ngModel)]="profile1.user.person.firstName" name="profile1" placeholder="Pick a profile" required>
+                    </div>
+
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="email">Profile Two</label>
+                        <input type="text" class="form-control" id="profile2"
+                        [(ngModel)]="profile2.user.person.firstName" name="profile2" placeholder="Pick a profile" required>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!suggestionForm.form.valid">Add Suggestion</button>
+              </form>
+
+
+              <br>
+
+
+
+              <div *ngIf="foundProfiles.length == 0 && loaded">
+                <div class="jumbotron">
+                  <h1 class="display-4">No Profiles Found</h1>
+                  <p class="lead">To search for profiles, you must enter the dating age range.
+                  Find profiles and select them to then create suggestions.</p>
+                  <hr class="my-4">
+
+                </div>
+              </div>
+
+              <div *ngIf="foundProfiles.length > 0" class="row data-box">
+                <div *ngFor="let profile of foundProfiles" class="col-sm-6 accCard">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{profile.user.person.firstName}} {{profile.user.person.lastName}} </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Age
+                         <button class="btn btn-outline-primary">{{profile.age}} years old</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Gender
+                        <button class="btn btn-outline-primary">{{profile.m_f}}</button>
+                      </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Hair Color
+                         <button class="btn btn-outline-primary">{{profile.hairColor}}</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Weight
+                        <button class="btn btn-outline-primary">{{profile.weight}} lbs</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Height
+                         <button class="btn btn-outline-primary">{{profile.height}} feet</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Street
+                        <button class="btn btn-outline-primary">{{profile.user.person.street}} </button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                       City
+                       <button class="btn btn-outline-primary">{{profile.user.person.city}} </button>
+                     </li>
+                     <li class="list-group-item d-flex justify-content-between align-items-center">
+                      State
+                      <button class="btn btn-outline-primary">{{profile.user.person.state}} </button>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                     Zipcode
+                     <button class="btn btn-outline-primary">{{profile.user.person.zipcode}}</button>
+                   </li>
+                       <li class="list-group-item">
+                         <button *ngFor="let hobbie of profile.hobbiesList"  type="button" class="btn btn-outline-primary hobbies">{{hobbie}}</button>
+                       </li>
+                      </ul>
+                    <div class="card-footer">
+                      Last Active {{timeSince(profile.user.dateOfLastAct)}} ago
+                      <button type="button" class="btn btn-outline-primary" style="float:right" (click)="selectProfile(profile)" [ngClass]="{'btn-primary-s': selectedProfileCheck(profile)}">{{selctedBtnMsg(profile)}}</button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+            </div>
+    </div>
+  </div>
+
+
+
+
+</div>

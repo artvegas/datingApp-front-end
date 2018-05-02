@@ -32,6 +32,13 @@ import { ReportsComponent } from './manager/reports/reports.component';
 import { SharedService } from './active/service/shared.service';
 import { ReportService } from './manager/service/service';
 import { UsersComponent } from './manager/users/users.component';
+import { DatesStatsComponent } from './manager/dates/dates.component';
+import { RevenueComponent } from './manager/reveune/reveune.component';
+import { EmployeesComponent } from './manager/employees/employees.component';
+import { CustomersComponent } from './manager/customers/customers.component';
+import { CustDataComponent } from './manager/custData/customers.component';
+import { CustDatesComponent } from './manager/custDate/dates.component';
+import { BlindDateComponent } from './active/blindDate/dates.component';
 
 @NgModule({
   declarations: [
@@ -48,7 +55,14 @@ import { UsersComponent } from './manager/users/users.component';
     DatesComponent,
     SignInManagerComponent,
     ReportsComponent,
-    UsersComponent
+    UsersComponent,
+    DatesStatsComponent,
+    RevenueComponent,
+    EmployeesComponent,
+    CustomersComponent,
+    CustDataComponent,
+    CustDatesComponent,
+    BlindDateComponent
   ],
   imports: [
     BrowserModule,

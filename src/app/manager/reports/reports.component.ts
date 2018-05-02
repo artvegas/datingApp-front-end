@@ -25,6 +25,7 @@ export class ReportsComponent {
   reportMsg = "";
   reportWarning = false;
   reports = [];
+  loaded = true;
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
 
@@ -66,6 +67,7 @@ export class ReportsComponent {
         this.reportMsg += " December, " + this.year;
       }
       this.reports = response.object;
+      this.loaded = true;
     }else{
       this.reportWarning = true;
       this.reportMsg = "Error generating sales report";

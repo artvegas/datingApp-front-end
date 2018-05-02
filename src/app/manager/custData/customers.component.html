@@ -1,0 +1,140 @@
+<div class="accounts">
+  <div class="row">
+    <div class="col-md-4 order-md-1">
+            <div class="account-form">
+              <div class="row header">
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(0)" [ngClass]="{'text-muted-2': !activePage(0)}">Get Mailing List</h4>
+                </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(1)" [ngClass]="{'text-muted-2': !activePage(1)}" >Get Suggestion List</h4>
+                </div>
+              </div>
+
+            </div>
+    </div>
+    <div class="col-md-8 order-md-1">
+            <div class="account-form">
+              <h4 class="mb-3">{{pageName}}</h4>
+              <div class="alert alert-success" *ngIf="reportAlert || reportWarning" [ngClass]="{'alert-warning': reportWarning}" role="alert">
+                {{reportMsg}}
+              </div>
+
+
+                            <form class="col-md-4" class="needs-validation" *ngIf="activePage(1)" (ngSubmit)="getSuggestionsByProfileId(signupForm)" #signupForm="ngForm" >
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="mb-3">
+                                    <label for="rating">Pick User Profile</label>
+                                    <select class="custom-select d-block w-100" id="rating"
+                                    [(ngModel)]="profileId" name="rating" required>
+                                      <option value="0">Choose...</option>
+                                      <option *ngFor="let profile of profiles" value="{{profile.profileId}}">{{profile.user.person.firstName}} {{profile.user.person.lastName}} - {{profile.profileName}}</option>
+
+                                    </select>
+                                  </div>
+                                </div>
+
+                              </div>
+
+                              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
+                            </form>
+
+              <br>
+              <div *ngIf="suggestions.length == 0 && loaded && activePage(1)">
+                <div class="jumbotron">
+                  <h1 class="display-4">No suggestions found.</h1>
+                  <p class="lead">There are no suggestions for this user. </p>
+                  <hr class="my-4">
+
+                </div>
+              </div>
+
+              <div *ngIf="mailingList.length == 0 && loaded && activePage(0)">
+                <div class="jumbotron">
+                  <h1 class="display-4">No mailing list found.</h1>
+                  <p class="lead">There are no mailing lists in the system.</p>
+                  <hr class="my-4">
+
+                </div>
+              </div>
+
+              <div *ngIf="suggestions.length > 0" class="row data-box">
+                <div *ngFor="let suggestion of suggestions" class="col-sm-6 accCard">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">Customer Representative: {{suggestion.id.custRep.person.firstName}} {{suggestion.id.custRep.person.lastName}} </h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Located
+                         <button class="btn btn-outline-primary">{{getLocation(suggestion)}}</button>
+                       </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Age
+                         <button class="btn btn-outline-primary">{{getAge(suggestion)}} years old</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Gender
+                        <button class="btn btn-outline-primary">{{getGender(suggestion)}}</button>
+                      </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Hair Color
+                         <button class="btn btn-outline-primary">{{getHairColor(suggestion)}}</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Weight
+                        <button class="btn btn-outline-primary">{{getWeight(suggestion)}} lbs</button>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Height
+                         <button class="btn btn-outline-primary">{{getHeight(suggestion)}} feet</button>
+                       </li>
+                       <li class="list-group-item">
+                         <button *ngFor="let hobbie of getHobbies(suggestion)"  type="button" class="btn btn-outline-primary hobbies" [ngClass]="{'btn-primary-s' : activeHobbiesCheck(hobbie)}">{{hobbie}}</button>
+                       </li>
+                      </ul>
+                    <div class="card-footer text-muted">
+                      Last Active {{timeSince(getlastActive(suggestion))}} ago
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="mailingList.length > 0" class="row data-box">
+                <div *ngFor="let list of mailingList" class="col-sm-12 accCard">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{list.firstName}} {{list.lastName}} </h5>
+                    </div>
+
+                      <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Address
+                         <button class="btn btn-outline-primary">{{list.address}}</button>
+                       </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         Email
+                         <button class="btn btn-outline-primary">{{list.email}}</button>
+                       </li>
+                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Telephone
+                        <button class="btn btn-outline-primary">{{list.phone}}</button>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                         SSN
+                         <button class="btn btn-outline-primary">{{list.ssn}}</button>
+                      </li>
+                      </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+    </div>
+  </div>
+
+
+
+
+</div>

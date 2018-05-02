@@ -13,24 +13,36 @@
 
   <div *ngIf="!currentProfileNull">
     <div class="row">
-      <div class="col-md-12 order-md-1">
+      <div class="col-md-2 order-md-1">
               <div class="row">
-                <div (click)="updatesActivePage(4)" class="col-md-2 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(4)}">
+                <div (click)="updatesActivePage(4)" class="col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(4)}">
                   <h4 class="mb-3">Today</h4>
                 </div>
-                  <div (click)="updatesActivePage(0)" class="col-md-2 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(0)}">
+                  <div (click)="updatesActivePage(0)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(0)}">
                     <h4 class="mb-3">Upcoming</h4>
                   </div>
-                  <div (click)="updatesActivePage(1)" class="col-md-2 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(1)}">
+                  <div (click)="updatesActivePage(1)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(1)}">
                     <h4 class="mb-3">Waiting</h4>
                   </div>
-                  <div (click)="updatesActivePage(2)" class="col-md-2 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(2)}">
+                  <div (click)="updatesActivePage(2)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(2)}">
                     <h4 class="mb-3">Requests</h4>
                   </div>
-                  <div (click)="updatesActivePage(3)" class="col-md-2 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(3)}">
+                  <div (click)="updatesActivePage(3)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(3)}">
                     <h4 class="mb-3">Past</h4>
                   </div>
+                  <div (click)="updatesActivePage(5)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(5)}">
+                    <h4 class="mb-3">Blind</h4>
+                  </div>
+
+                  <div (click)="updatesActivePage(6)" class=" col-sm-8 order-md-1 active" [ngClass]="{'text-muted-2': !activePageCheck(6)}">
+                    <h4 class="mb-3">Suggestions</h4>
+                  </div>
+
               </div>
+            </div>
+
+
+          <div class="col-md-10 order-md-1">
 
                 <br>
                 <div class="alert alert-success" *ngIf="datingSucces || datingAlert" [ngClass]="{'alert-warning': datingAlert}" role="alert">
@@ -45,6 +57,16 @@
                     <p>All upcoming dates will be displayed here.</p>
                   </div>
                 </div>
+
+                <div *ngIf="loaded && suggestions.length == 0 && activePageCheck(6)">
+                  <div class="jumbotron">
+                    <h1 class="display-4">You have no suggestions.</h1>
+                    <p class="lead">Looks our Customer Representatives haven't suggested anyone for you.</p>
+                    <hr class="my-4">
+                    <p>All suggestions will be displayed here.</p>
+                  </div>
+                </div>
+
 
                 <div *ngIf="loaded && todayDates.length == 0 && activePageCheck(4)">
                   <div class="jumbotron">
@@ -82,11 +104,62 @@
                   </div>
                 </div>
 
+                <div *ngIf="loaded && blindDates.length == 0 && activePageCheck(5)">
+                  <div class="jumbotron">
+                    <h1 class="display-4">You have no blind dates.</h1>
+                    <p class="lead">Looks no one has set you up for a blind date.</p>
+                    <hr class="my-4">
+                    <p>All blind dates will be displayed here.</p>
+                  </div>
+                </div>
+
+                <div *ngIf="blindDates.length > 0 && activePageCheck(5)" class="row data-box">
+                  <div *ngFor="let date of blindDates" class="col-sm-6 accCard">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">{{date.profilC.user.person.firstName}} {{date.profileC.user.person.lastName}} </h5>
+                      </div>
+
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Profile A
+                           <button class="btn btn-outline-primary">{{date.profileA.user.person.firstName}} {{date.profileA.user.person.lastName}}</button>
+                         </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Profile B
+                           <button class="btn btn-outline-primary">{{date.profileB.user.person.firstName}} {{date.profileB.user.person.lastName}}</button>
+                         </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div *ngIf="suggestions.length > 0  && activePageCheck(6)" class="row data-box">
+                  <div *ngFor="let suggest of suggestions" class="col-sm-6 accCard">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Customer Representative: {{suggest.id.custRep.person.firstName}} {{suggest.id.custRep.person.lastName}} </h5>
+                      </div>
+
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Profile A
+                           <button class="btn btn-outline-primary">{{suggest.id.profile1.user.person.firstName}} {{suggest.id.profile1.user.person.lastName}}</button>
+                         </li>
+                          <li class="list-group-item d-flex justify-content-between align-items-center">
+                           Profile B
+                           <button class="btn btn-outline-primary">{{suggest.id.profile2.user.person.firstName}} {{suggest.id.profile2.user.person.lastName}}</button>
+                         </li>
+                        </ul>
+                    </div>
+                  </div>
+                </div>
+
 
               <div class="row">
                 <div class="col-md-12 order-md-1">
                         <div class="account-form">
-                          <div *ngIf="true" class="row">
+                          <div *ngIf="displayDates.length > 0 && !activePageCheck(6) && !activePageCheck(5)" class="row">
                             <div *ngFor="let date of displayDates" class="col-sm-4 accCard">
                               <div class="card">
                                 <div class="card-body"  >

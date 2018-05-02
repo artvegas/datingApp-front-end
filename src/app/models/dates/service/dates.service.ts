@@ -36,7 +36,8 @@ constructor( private http: HttpClient){}
    private datesForTodayUrl = this.baseUrl + "today/";
    private addCommentUrl = this.addDatesUrl + "/comment/"
    private rateDateUrl = this.baseUrl + "rate/"
-
+   private blindDateUrl =  "http://localhost:8080/blindDates/";
+   private suggestionUrl = "http://localhost:8080/suggestedBys/";
    getAllDates (): Observable<Dates[]> {
     return this.http.get<Dates[]>(this.getAllUrl)
   }
@@ -100,6 +101,19 @@ constructor( private http: HttpClient){}
       tap((dates: Dates[]) => this.log(`getRequestsRecieved ${dates}`)),
       catchError(this.handleError<Dates[]>('getRequestsRecieved'))
     )}
+
+        getSuggestions (profileId: string): Observable<Dates[]> {
+          return this.http.get<Dates[]>(this.suggestionUrl + profileId, httpOptions).pipe(
+            tap((dates: Dates[]) => this.log(`getDatesForToday ${dates}`)),
+            catchError(this.handleError<Dates[]>('getDatesForToday'))
+          )}
+
+
+    getBlindDates (profileId: string): Observable<Dates[]> {
+      return this.http.get<Dates[]>(this.blindDateUrl + profileId, httpOptions).pipe(
+        tap((dates: Dates[]) => this.log(`getDatesForToday ${dates}`)),
+        catchError(this.handleError<Dates[]>('getDatesForToday'))
+      )}
 
     getDatesForToday (profileId: string): Observable<Dates[]> {
       return this.http.get<Dates[]>(this.datesForTodayUrl + profileId, httpOptions).pipe(

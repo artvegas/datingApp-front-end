@@ -62,6 +62,8 @@ export class DatesComponent {
     rateWarning = false
     rateMessage = "";
     ratingToggle = false;
+    blindDates = [];
+    suggestions = [];
     ngOnInit(): void {
       this.userData = JSON.parse(this.cookieService.get("userData"));
       this.getAllUserAccounts(this.userData[0]['ssn']);
@@ -76,7 +78,9 @@ export class DatesComponent {
         this.activeProfile.user.person = new Person("", "", "", "", "", "", "", "", "", null);
       this.dateService.getUpcomingDates(this.profile.profileId).
       subscribe(response => this.updatesUpcomingDates(response));
-      this.dateService.getPastDates("Isabelle2014").
+      this.dateService.getBlindDates(this.profile.profileId).
+      subscribe(response => this.updateBlindDates(response));
+      this.dateService.getPastDates(this.profile.profileId).
       subscribe(response => this.updatesPastDates(response));
       this.dateService.getRequestsRecieved(this.profile.profileId).
       subscribe(response => this.updatesRequestsDates(response));
@@ -84,11 +88,26 @@ export class DatesComponent {
       subscribe(response => this.updateRequestsSentDates(response));
       this.dateService.getDatesForToday(this.profile.profileId).
       subscribe(response => this.updateDatesForToday(response));
+      this.dateService.getSuggestions(this.profile.profileId).
+      subscribe(response => this.updateSuggestions(response));
     }
 
     updateRequestsSentDates(response){
       if(response.statusCode === 200){
           this.requestsSentDates = response.object;
+      }
+    }
+
+    updateSuggestions(response){
+      if(response.statusCode === 200){
+          this.suggestions = response.object;
+      }
+    }
+
+
+    updateBlindDates(response){
+      if(response.statusCode === 200){
+          this.blindDates = response.object;
       }
     }
 
@@ -152,7 +171,7 @@ export class DatesComponent {
       if(this.activePage == 4){
         return this.getTime(time);
       }
-      return moment(time).format('MMMM, D Y');
+      return moment(time).format('MMMM D, Y');
     }
 
     getTime(time){

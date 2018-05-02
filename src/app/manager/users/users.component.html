@@ -12,8 +12,10 @@
                 <div class="col-sm-8">
                   <h4 class="sm-8" (click)="setActivePage(2)" [ngClass]="{'text-muted-2': !activePage(2)}" >Highest Rated Users</h4>
                 </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(3)" [ngClass]="{'text-muted-2': !activePage(3)}" >Find Users Who Dated User</h4>
+                </div>
               </div>
-              <br>
 
 
             </div>
@@ -22,8 +24,38 @@
             <div class="account-form">
               <h4 class="mb-3">Result</h4>
               <div class="alert alert-success" *ngIf="reportAlert || reportWarning" [ngClass]="{'alert-warning': reportWarning}" role="alert">
-                Sucesfully generated User data.
+                {{reportMsg}}
               </div>
+
+              <form class="col-md-4" class="needs-validation" *ngIf="activePage(3)" (ngSubmit)="getUsersWhoDatedUser(signupForm)" #signupForm="ngForm" >
+
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="mb-3">
+                      <label for="rating">Pick User Profile</label>
+                      <select class="custom-select d-block w-100" id="rating"
+                      [(ngModel)]="profileId" name="rating" required>
+                        <option value="0">Choose...</option>
+                        <option *ngFor="let profile of profiles" value="{{profile.profileId}}">{{profile.user.person.firstName}} {{profile.user.person.lastName}} - {{profile.profileName}}</option>
+
+                      </select>
+                    </div>
+                  </div>
+
+                </div>
+
+                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
+              </form>
+              <br>
+              <div *ngIf="displayUsers.length == 0 && loaded">
+                <div class="jumbotron">
+                  <h1 class="display-4">No users found.</h1>
+                  <p class="lead">There are no users which match the query in the database. </p>
+                  <hr class="my-4">
+
+                </div>
+              </div>
+
               <div *ngIf="displayUsers.length > 0" class="row data-box">
                 <div *ngFor="let user of displayUsers" class="col-sm-6 accCard">
                   <div class="card">
@@ -36,8 +68,20 @@
                       <button class="btn btn-outline-primary">{{user.ppp}}</button>
                       </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
+                        SSN
+                      <button class="btn btn-outline-primary">{{user.person.ssn}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Email
+                      <button class="btn btn-outline-primary">{{user.person.email}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Telephone
+                      <button class="btn btn-outline-primary">{{user.person.telephone}}</button>
+                      </li>
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
                         Rating
-                      <button class="btn btn-outline-primary">{{user.rating}}</button>
+                      <button class="btn btn-outline-primary">{{checkRating(user.rating)}}</button>
                       </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                        Street
@@ -55,10 +99,6 @@
                         Zipcode
                       <button class="btn btn-outline-primary">{{user.person.zipcode}}
                       </button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                        Telephone
-                      <button class="btn btn-outline-primary">{{user.person.telephone}}</button>
                       </li>
                     </ul>
                     <div class="card-footer text-muted">

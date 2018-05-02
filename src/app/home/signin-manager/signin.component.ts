@@ -16,7 +16,7 @@ export class SignInManagerComponent {
   private email: string;
   alertShow = false;
   alertMessage = "";
-
+  role = "0";
   emailPattern = '^([\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4})?$';
 
   constructor(private personService: PersonService, private router: Router,
@@ -24,21 +24,39 @@ export class SignInManagerComponent {
 
   onSubmit(form) : void {
     console.log("logging in person to server\n");
-    this.personService.loginManager(this.model).subscribe(
-      response => this.showAlert(response)
-  )}
+    if(this.role === "1")
+    {
+      this.personService.loginManager(this.model).subscribe(
+        response => this.showAlert(response, this.role)
+      )
+    }else if(this.role === "2"){
+      this.personService.loginCustRep(this.model).subscribe(
+        response => this.showAlert(response, this.role)
+      )
+    }
+  }
 
-  showAlert(response) : void {
+  showAlert(response, role) : void {
     if(response.statusCode != 200){
       this.alertShow = true;
       this.alertMessage = response.status;
     }else{
       this.cookieService.putObject("userData", response.object);
       this.cookieService.put("session", "true");
-      this.cookieService.put("managerOn", "true");
-      this.managerIsLoggedIn();
-      this.router.navigateByUrl('/reports');
+      if(role === "1"){
+        this.cookieService.put("managerOn", "true");
+        this.managerIsLoggedIn();
+              this.router.navigateByUrl('/reports');
+      }else if(role === "2"){
+        this.cookieService.put("custRepOn", "true");
+        this.custRepIsLoggedIn();
+              this.router.navigateByUrl('/edit-customers');
+      }
     }
+  }
+
+  custRepIsLoggedIn(){
+    this.sharedService.custRepIsLoggedIn.next(true);
   }
 
   managerIsLoggedIn(){

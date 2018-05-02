@@ -12,6 +12,13 @@ import { SearchComponent } from './active/search/search.component';
 import { DatesComponent } from './active/dates/dates.component';
 import { ReportsComponent } from './manager/reports/reports.component';
 import { UsersComponent } from './manager/users/users.component';
+import { DatesStatsComponent } from './manager/dates/dates.component';
+import { RevenueComponent } from './manager/reveune/reveune.component';
+import { EmployeesComponent } from './manager/employees/employees.component';
+import { CustomersComponent } from './manager/customers/customers.component';
+import { CustDataComponent } from './manager/custData/customers.component';
+import { CustDatesComponent } from './manager/custDate/dates.component';
+import { BlindDateComponent } from './active/blindDate/dates.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -25,7 +32,14 @@ const routes: Routes = [
   { path: 'dates', component: DatesComponent},
   { path: 'manager', component: SignInManagerComponent},
   { path: 'reports', component: ReportsComponent},
-  { path: 'user-stats', component: UsersComponent}
+  { path: 'user-stats', component: UsersComponent},
+  { path: 'date-stats', component: DatesStatsComponent},
+  { path: 'revenue-stats', component: RevenueComponent},
+  { path: 'employees', component: EmployeesComponent},
+  { path: 'edit-customers', component: CustomersComponent},
+  { path: 'report-customers', component: CustDataComponent},
+  { path: 'cust-dates', component: CustDatesComponent},
+  { path: 'blindDate', component: BlindDateComponent}
 
 ];
 

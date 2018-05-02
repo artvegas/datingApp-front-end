@@ -22,6 +22,8 @@ export class ProfileComponent {
     private profileService:ProfileService,
     private sharedService : SharedService) {}
 
+		filterByMostActiveBool = false;
+		filterByHighestRated = false;
   alertSuccess = false;
 	userData = "";
 	userHasNoAccounts = false;
@@ -78,6 +80,24 @@ export class ProfileComponent {
 			this.userProfiles = [];
 		}
 	}
+	filterByMostActive(){
+
+		if(this.userProfiles.length > 0){
+			this.filterByMostActiveBool = true;
+			for(var i = 0; i < this.userProfiles.length; i++){
+
+				for(var j = 0; j < this.userProfiles.length; j++){
+					if(this.userProfiles[i].lastModDate > this.userProfiles[j].lastModDate){
+						var temp = this.userProfiles[i];
+						this.userProfiles[i] = this.userProfiles[j];
+						this.userProfiles[j] = temp;
+					}
+				}
+			}
+		}
+	}
+
+
 	onSubmit(form): void {
 		console.log("adding new profile\n");
 		console.log(form, "form");

@@ -13,6 +13,7 @@ export class HomeNavComponent {
   currentAccount = "None";
   currentProfile = "None";
   managerIsLoggedIn = false;
+  custRepIsLoggedIn = false;
   constructor(private router:Router, private cookieService: CookieService,
   private sharedService :SharedService){}
   ngOnInit() {
@@ -25,6 +26,9 @@ export class HomeNavComponent {
       this.sharedService.managerIsLoggedIn.subscribe( value =>
           this.managerIsLoggedIn = value
       );
+      this.sharedService.custRepIsLoggedIn.subscribe( value =>
+          this.custRepIsLoggedIn = value
+      );
       this.sharedService.currentProfile.subscribe( value =>
           this.currentProfile = value
       );
@@ -32,8 +36,15 @@ export class HomeNavComponent {
         if(this.cookieService.get("managerOn") === "true"){
           this.sharedService.managerIsLoggedIn.next(true);
           this.sharedService.userIsLoggedIn.next(false);
+          this.sharedService.custRepIsLoggedIn.next(false);
+        }else if(this.cookieService.get("custRepOn") === "true"){
+          this.sharedService.custRepIsLoggedIn.next(true);
+          this.sharedService.userIsLoggedIn.next(false);
+          this.sharedService.managerIsLoggedIn.next(false);
         }else{
           this.sharedService.userIsLoggedIn.next(true);
+          this.sharedService.managerIsLoggedIn.next(false);
+          this.sharedService.custRepIsLoggedIn.next(false);
         }
 
       }else{
@@ -47,15 +58,21 @@ export class HomeNavComponent {
           var tempAccount = JSON.parse(this.cookieService.get("currentAccount"));
           this.currentAccount = tempAccount.account.acctName;
       }
+      console.log(this.cookieService.get("custRepOn"), "cookie cust");
+        console.log(this.cookieService.get("managerOn"), "managerOn cust");
       console.log(this.managerIsLoggedIn, "manager");
+      console.log(this.custRepIsLoggedIn, "custRep");
       console.log(this.userLoggedIn, "user ");
     }
 
   logout(): void{
     console.log("logging out");
     this.cookieService.put("session", "false");
+    this.cookieService.put("managerOn", "false");
+    this.cookieService.put("custRepOn", "false");
     this.userIsLoggedOut();
     this.managerIsLoggedOut();
+    this.custRepIsLoggedOut();
     console.log(this.userLoggedIn, "userLoggedIn");
     this.router.navigateByUrl('/signin');
   }
@@ -69,5 +86,8 @@ export class HomeNavComponent {
   }
   managerIsLoggedOut(){
     this.sharedService.managerIsLoggedIn.next(false);
+  }
+  custRepIsLoggedOut(){
+    this.sharedService.custRepIsLoggedIn.next(false);
   }
 }

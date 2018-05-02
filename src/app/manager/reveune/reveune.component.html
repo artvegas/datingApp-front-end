@@ -4,13 +4,16 @@
             <div class="account-form">
               <div class="row header">
                 <div class="col-sm-8">
-                  <h4 class="sm-8" (click)="setActivePage(0)" [ngClass]="{'text-muted-2': !activePage(0)}">Find Dates by Date</h4>
+                  <h4 class="sm-8" (click)="setActivePage(0)" [ngClass]="{'text-muted-2': !activePage(0)}">Find Revenue by Dates by Date</h4>
                 </div>
                 <div class="col-sm-8">
-                  <h4 class="sm-8" (click)="setActivePage(1)" [ngClass]="{'text-muted-2': !activePage(1)}">Find Dates by Customer</h4>
+                  <h4 class="sm-8" (click)="setActivePage(1)" [ngClass]="{'text-muted-2': !activePage(1)}">Find Revenue by Dates by User</h4>
                 </div>
                 <div class="col-sm-8">
-                  <h4 class="sm-8" (click)="setActivePage(2)" [ngClass]="{'text-muted-2': !activePage(2)}">Find Highest-Rated Day For Dates</h4>
+                  <h4 class="sm-8" (click)="setActivePage(2)" [ngClass]="{'text-muted-2': !activePage(2)}">Find Highest Revenue Generating User</h4>
+                </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(3)" [ngClass]="{'text-muted-2': !activePage(3)}">Find Highest Revenue Generating Customer Rep</h4>
                 </div>
               </div>
               <br>
@@ -137,85 +140,46 @@
 
               <br>
 
-              <div *ngIf="highestDay == null && activePage(2) && loaded">
+              <div *ngIf="">
                 <div class="jumbotron">
-                  <h1 class="display-4">No Day Found</h1>
+                  <h1 class="display-4">No Revenue Report found</h1>
                   <p class="lead">Either you have not yet submited a query get report or there is no data in the database for given parameters.</p>
                   <hr class="my-4">
 
                 </div>
               </div>
 
-              <div *ngIf="displayDates.length == 0 && !activePage(2) && loaded">
-                <div class="jumbotron">
-                  <h1 class="display-4">No Dates Found</h1>
-                  <p class="lead">Either you have not yet submited a query get report or there is no data in the database for given parameters.</p>
-                  <hr class="my-4">
 
-                </div>
-              </div>
 
-              <div *ngIf="highestDay && activePage(2)" class="row data-box">
+              <div *ngIf="bestUser && activePage(2)" class="row data-box">
                   <div class="card col-md-12">
                     <div class="card-body"  >
-                      <h5 class="card-title">{{getDatesTime(highestDay.time)}}</h5>
+                      <h5 class="card-title">{{bestUser.user.person.firstName}} {{bestUser.user.person.lastName}}</h5>
                     </div>
                     <ul  class="list-group list-group-flush">
-                      <li  class="list-group-item d-flex justify-content-between align-items-center">
-                       Location
-                      <button class="btn btn-outline-primary">{{highestDay.location}}</button>
-                      </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Total rating
-                      <button class="btn btn-outline-primary">{{highestDay.rating}}</button>
+                       Total Revenue Generated
+                      <button class="btn btn-outline-primary">$ {{bestUser.totalFee}}</button>
                       </li>
                     </ul>
                   </div>
               </div>
 
-              <div *ngIf="displayDates.length > 0" class="row data-box">
-                <div *ngFor="let date of displayDates" class="col-sm-6 accCard">
-                  <div class="card">
+              <div *ngIf="bestCustRep && activePage(3)" class="row data-box">
+                  <div class="card col-md-12">
                     <div class="card-body"  >
-                      <h5 class="card-title">{{getDatesTime(date.dateKey.dateTime)}}</h5>
+                      <h5 class="card-title">{{bestCustRep.custRep.person.firstName}} {{bestCustRep.custRep.person.lastName}}</h5>
                     </div>
                     <ul  class="list-group list-group-flush">
-                      <li  class="list-group-item d-flex justify-content-between align-items-center">
-                       Status
-                      <button class="btn btn-outline-primary">{{getStatus(date.status)}}</button>
-                      </li>
                       <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Person
-                      <button class="btn btn-outline-primary">{{date.dateKey.profile1.user.person.firstName}} {{date.dateKey.profile1.user.person.lastName}}</button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Person
-                      <button class="btn btn-outline-primary">{{date.dateKey.profile2.user.person.firstName}} {{date.dateKey.profile2.user.person.lastName}}</button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                       At
-                      <button class="btn btn-outline-primary">{{date.location}}</button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Time
-                      <button class="btn btn-outline-primary">{{getTime(date.dateKey.dateTime)}}</button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Cost
-                      <button class="btn btn-outline-primary">$ {{date.bookingFee}}</button>
-                      </li>
-                      <li  class="list-group-item d-flex justify-content-between align-items-center">
-                       Person 1 Rated
-                      <button class="btn btn-outline-primary">{{date.user1Rating}}</button>
-                      </li>
-                      <li class="list-group-item d-flex justify-content-between align-items-center">
-                       Person 2 Rated
-                        <button class="btn btn-outline-primary">{{date.user2Rating}}</button>
+                       Total Revenue Generated
+                      <button class="btn btn-outline-primary">$ {{bestCustRep.bookingFees}}</button>
                       </li>
                     </ul>
                   </div>
-                </div>
               </div>
+
+
 
             </div>
     </div>

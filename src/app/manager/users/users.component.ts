@@ -30,6 +30,9 @@ export class UsersComponent {
   activeUsers = [];
   ratedUsers = [];
   displayUsers = [];
+  profiles = [];
+  profileId = 0;
+  loaded = false;
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
     this.reportService.getAllUsers().subscribe(
@@ -41,6 +44,49 @@ export class UsersComponent {
     this.reportService.getHighestRatedUsers().subscribe(
       response => this.updateRatedUsers(response)
     )
+    this.reportService.getAllProfiles().subscribe(
+      response => this.updateAllProfiles(response)
+    )
+  }
+
+  getUsersWhoDatedUser(form){
+    this.reportService.getUsersWhoDatedUser(this.profileId).subscribe(
+      response => this.updateUsersWhoDatedUser(response)
+    )
+  }
+  checkRating(rating){
+    if(rating == -1){
+      return "Not yet Rated";
+    }else{
+      return rating;
+    }
+  }
+  updateUsersWhoDatedUser(response){
+      this.displayUsers = [];
+    if(response.statusCode === 200){
+      this.reportAlert = true;
+      this.reportMsg = "Succesfuly generated all users who dated required user profile.";
+      for(var i = 0; i < response.object.length; i++){
+        var found = false;
+        for(var j = 0; j < this.displayUsers.length; j++){
+          if(this.displayUsers[j].person.ssn === response.object[i].user.person.ssn){
+            found = true;
+          }
+        }
+        if(found == false){
+          this.displayUsers.push(response.object[i].user);
+        }
+      }
+    }else{
+      this.reportWarning  = true;
+      this.reportMsg = "Error generating all users who dated required user profile;"
+    }
+  }
+
+  updateAllProfiles(response){
+    if(response.statusCode === 200){
+      this.profiles = response.object;
+    }
   }
 
   updateAllUsers(response){
@@ -52,6 +98,7 @@ export class UsersComponent {
         this.allUsers = response.object;
         this.displayUsers = this.allUsers;
         this.setActivePage(0);
+        this.loaded = true;
       }else{
         this.reportWarning  = true;
         this.reportMsg = "Error generating all users;"
@@ -138,6 +185,11 @@ export class UsersComponent {
       this.displayUsers = this.activeUsers;
     }else if(type == 2){
       this.displayUsers = this.ratedUsers;
+    }else if(type == 3){
+      this.displayUsers = [];
+      this.reportAlert = false;
+      this.reportWarning = false;
+      this.reportMsg = "";
     }
     console.log(this.displayUsers, " users");
   }

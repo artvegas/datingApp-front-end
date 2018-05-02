@@ -7,4 +7,5 @@ export class Employee{
   public role: string;
   public startDate: Date;
   public hourlyRate: number;
+  public ssn: string;
 }

@@ -1,0 +1,101 @@
+.accounts{
+  padding:5%;
+}
+
+.accCard{
+  margin-bottom:4%;
+}
+
+.btn-primary-s{
+  color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+}
+
+.text-muted-2{
+  color:rgba(0,0,0,.5);
+}
+
+.data-box{
+  overflow:auto;
+}
+
+
+.search{
+  padding:5%;
+}
+
+.col-sm-12{
+  margin-bottom: 2%;
+}
+
+.list-group-item-primary{
+  color:white;
+}
+
+.btn-primary-s{
+  color: #fff;
+background-color: #007bff;
+border-color: #007bff;
+}
+
+.profilePic{
+  max-width: 100%;
+  max-height:100%;
+  border-radius: 4px;
+}
+
+.modal-body{
+  margin-top:2%;
+  margin-bottom:2%;
+  width:auto;
+}
+
+.modal-dialog {
+  width:auto;
+}
+.profilePictureDiv{
+  width:200px;
+  height:300px;
+  background-color:#fcfcfc;
+  border-radius:3px;
+  border-style:solid;
+  border-color:#edeeef;
+}
+
+.border-primary{
+  border-color: #007bff;
+}
+.progress{
+  height:40px;
+  vertical-align: center;
+}
+
+.progress-bar{
+  padding-top:10px;
+  vertical-align: center;
+}
+
+.hobbies{
+  margin:4px;
+}
+.profileData{
+  vertical-align: center;
+  margin-top:7px;
+}
+
+.datesForm{
+  border-style:none;
+  padding:5%;
+  width:100%;
+  text-align: left;
+}
+
+.card-columns {
+  @include media-breakpoint-only(lg) {
+    column-count: 2;
+  }
+  @include media-breakpoint-only(xl) {
+    column-count: 2;
+  }
+}
