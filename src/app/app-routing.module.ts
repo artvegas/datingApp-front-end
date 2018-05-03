@@ -19,6 +19,7 @@ import { CustomersComponent } from './manager/customers/customers.component';
 import { CustDataComponent } from './manager/custData/customers.component';
 import { CustDatesComponent } from './manager/custDate/dates.component';
 import { BlindDateComponent } from './active/blindDate/dates.component';
+import { HelpComponent } from './active/help/accounts.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'edit-customers', component: CustomersComponent},
   { path: 'report-customers', component: CustDataComponent},
   { path: 'cust-dates', component: CustDatesComponent},
-  { path: 'blindDate', component: BlindDateComponent}
+  { path: 'blindDate', component: BlindDateComponent},
+    { path: 'help', component: HelpComponent}
 
 ];
 

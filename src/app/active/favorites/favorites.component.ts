@@ -49,6 +49,7 @@ export class FavoritesComponent {
     setUpBtnMsg = "Set Up Date";
     waitingDates: Dates[] = [];
     currentProfileNull = true;
+    dateTime = "";
     ngOnInit(): void {
       this.userData = JSON.parse(this.cookieService.get("userData"));
       this.getAllUserAccounts(this.userData[0]['ssn']);
@@ -59,6 +60,7 @@ export class FavoritesComponent {
       }else{
         this.currentProfileNull = true;
       }
+
       this.likeService.getAllLikesByLiker(this.profile.profileId).subscribe(
         response => this.getLikedProfiles(response))
         this.activeProfile.user = new User(null, null, null, null, null);
@@ -120,6 +122,7 @@ export class FavoritesComponent {
       this.date.dateKey.profile1 = this.profile;
       this.date.dateKey.profile2 = this.activeProfile;
       this.date.employee = null;
+      this.date.dateKey.dateTime = this.dateTime;
       this.addDate();
     }
 
@@ -161,6 +164,36 @@ export class FavoritesComponent {
       }else{
         this.setUpDatesOn = true;
         this.setUpBtnMsg = "Back To Profile";
+      }
+    }
+
+    setBookingFee(){
+      if(this.date.location === "Cheese Cake Factory"){
+        this.date.bookingFee = "$ 97.88";
+      }
+      if(this.date.location === "Starbucks"){
+        this.date.bookingFee = "$ 30.00";
+      }
+      if(this.date.location === "The Mall"){
+        this.date.bookingFee = "$ 45.24";
+      }
+      if(this.date.location === "Spice Restruant"){
+        this.date.bookingFee = "$ 52.11";
+      }
+      if(this.date.location === "Night Club Dinner"){
+        this.date.bookingFee = "$ 152.99";
+      }
+      if(this.date.location === "Arcade Tonight"){
+        this.date.bookingFee = "$ 25.42";
+      }
+      if(this.date.location === "Jacksion Ville Theater"){
+        this.date.bookingFee = "$ 32.23";
+      }
+      if(this.date.location === "Tomorrowland"){
+        this.date.bookingFee = "$ 1023.34";
+      }
+      if(this.date.location === "Barclays Concert"){
+        this.date.bookingFee = "$ 123.66";
       }
     }
 

@@ -51,15 +51,15 @@ export class ProfileComponent {
 		this.getAllUserProfiles(this.userData[0]['ssn']);
 		let user: User = new User(this.userData[0]['ssn'], null, null, null, null);
 		this.profile.setM_F("");
-		this.profile.setProfileName("Summer 2018");
-		this.profile.setAge(18);
-		this.profile.setHobbies("Drawing, Music, Dancing");
-		this.profile.setWeight(155);
-		this.profile.setHeight(5.7);
-		this.profile.setHairColor("Black");
-		this.profile.setDatingGeoRange(10);
-		this.profile.setDatingAgeRangeStart(18);
-		this.profile.setDatingAgeRangeEnd(22);
+		this.profile.setProfileName("");
+		this.profile.setAge("");
+		this.profile.setHobbies("");
+		this.profile.setWeight("");
+		this.profile.setHeight("");
+		this.profile.setHairColor("");
+		this.profile.setDatingGeoRange(0);
+		this.profile.setDatingAgeRangeStart("");
+		this.profile.setDatingAgeRangeEnd("");
 		this.profile.setUser(user);
 	}
 	getAllUserAccounts(ssn: string): void {
@@ -82,7 +82,7 @@ export class ProfileComponent {
 	}
 	filterByMostActive(){
 
-		if(this.userProfiles.length > 0){
+		if(this.userProfiles.length > 0 && this.filterByMostActiveBool == false){
 			this.filterByMostActiveBool = true;
 			for(var i = 0; i < this.userProfiles.length; i++){
 

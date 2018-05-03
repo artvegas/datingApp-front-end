@@ -51,6 +51,7 @@ export class SearchComponent {
 		datingSucces = false;
 		setUpBtnMsg = "Set Up Date";
 		waitingDates: Dates[] = [];
+		dateTime = "";
 		currentProfileNull = true;
     ngOnInit(): void {
       if(this.cookieService.get("currentProfile") != null){
@@ -77,6 +78,9 @@ export class SearchComponent {
       }else{
 				this.currentProfileNull = true;
 			}
+						this.date.dateKey = new DateKey();
+
+						console.log(this.date, "wdff");
 			this.likeService.getAllLikesByLiker(this.profile.profileId).subscribe(
 				response => this.getLikedProfiles(response));
   		this.userData = JSON.parse(this.cookieService.get("userData"));
@@ -209,6 +213,7 @@ export class SearchComponent {
 			this.date.dateKey = new DateKey();
 			this.date.dateKey.profile1 = this.profile;
 			this.date.dateKey.profile2 = this.activeProfile;
+			this.date.dateKey.dateTime = this.dateTime;
 			this.date.employee = null;
 			this.addDate();
 		}

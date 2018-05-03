@@ -43,6 +43,8 @@ constructor( private http: HttpClient){}
    private mailingListUrl = "http://localhost:8080/users/mailingList";
    private addSuggestionUrl = "http://localhost:8080/suggestedBys/";
    private addBlindDateUrl = "http://localhost:8080/blindDates/add"
+   private allDatesUrl = this.baseUrl + "dates";
+   private bookDateUrl = this.baseUrl + "dates/record";
 
    getAllEmployees (): Observable<Object[]> {
     return this.http.get<Object[]>(this.getAllUrl)
@@ -50,7 +52,7 @@ constructor( private http: HttpClient){}
 
 
     getSalesReport(year: string, month: number): Observable<Object[]> {
-   return this.http.post<Object[]>(this.salesReportUrl + year + "/" + month, httpOptions).pipe(
+   return this.http.get<Object[]>(this.salesReportUrl + year + "/" + month, httpOptions).pipe(
      catchError(this.handleError<Object[]>('getSalesReport'))
    )}
 
@@ -120,6 +122,16 @@ return this.http.get<Object[]>(this.allDatesByDateUrl + startYear + "/" + startM
  catchError(this.handleError<Object[]>('getSalesReport'))
 )}
 
+
+getMoneyByDate(startYear, startMonth, startDate,
+endYear, endMonth, endDate): Observable<Object[]> {
+return this.http.get<Object[]>(this.allDatesByDateUrl + "report/" + startYear + "/" + startMonth + "/" + startDate +
+"/" + endYear + "/" + endMonth + "/" + endDate , httpOptions).pipe(
+ catchError(this.handleError<Object[]>('getSalesReport'))
+)}
+
+
+
 getUsersWhoDatedUser(profileId): Observable<Object[]> {
 return this.http.get<Object[]>(this.userDatedUrl + profileId, httpOptions).pipe(
  catchError(this.handleError<Object[]>('getSalesReport'))
@@ -142,6 +154,16 @@ return this.http.get<Object[]>(this.sugggestionsUrl + profileId, httpOptions).pi
 
 getMailingList(): Observable<Object[]> {
 return this.http.get<Object[]>(this.mailingListUrl, httpOptions).pipe(
+ catchError(this.handleError<Object[]>('getSalesReport'))
+)}
+
+getAllDates(): Observable<Object[]> {
+return this.http.get<Object[]>(this.allDatesUrl, httpOptions).pipe(
+ catchError(this.handleError<Object[]>('getSalesReport'))
+)}
+
+bookDate(date): Observable<Object[]> {
+return this.http.post<Object[]>(this.bookDateUrl, date, httpOptions).pipe(
  catchError(this.handleError<Object[]>('getSalesReport'))
 )}
 

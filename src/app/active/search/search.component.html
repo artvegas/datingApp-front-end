@@ -5,9 +5,7 @@
       <p class="lead">You need to select a profile to search for other profiles.</p>
       <hr class="my-4">
       <p>Create a profile by going to my profiles. Make sure to create an account first to create profiles.</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
-      </p>
+
     </div>
   </div>
 
@@ -270,7 +268,7 @@
                   <div class="card datesForm">
 
                     <div class="mb-3">
-                      <h4 class="mb-3">Create Dates</h4>
+                      <h4 class="mb-3">Create Date</h4>
                     </div>
 
                     <div class="alert alert-success" *ngIf="datingAlert" [ngClass]="{'alert-warning': datingWarning}" role="alert">
@@ -280,13 +278,19 @@
                     <form class="needs-validation"  (ngSubmit)="submitDateFrom(datesForm)" #datesForm="ngForm" >
 
                       <div class="mb-3">
-                        <label for="email">Dates location</label>
+                        <label for="email">Date location</label>
                         <select class="custom-select d-block w-100" id="locatin"
                         [(ngModel)]="date.location" name="location" required>
-                          <option value="">Choose...</option>
-                          <option>Cheese Cake Factory</option>
-                          <option>Starbucks</option>
-                          <option>McDonald</option>
+                        <option value="">Choose...</option>
+                        <option>Cheese Cake Factory</option>
+                        <option>Starbucks</option>
+                        <option>The Mall</option>
+                        <option>Spice Restruant</option>
+                        <option>Night Club Dinner</option>
+                        <option>Arcade Tonight</option>
+                        <option>Jacksion Ville Theater</option>
+                        <option>Tomorrowland</option>
+                        <option>Barclays Concert</option>
                         </select>
                         <div class="invalid-feedback" *ngIf="ccAlert">
                           Please choose a location.
@@ -294,9 +298,9 @@
                       </div>
 
                       <div class="mb-3">
-                        <label for="time">Dates Time</label>
+                        <label for="time">Date Time</label>
                         <input type="datetime-local" class="form-control" id="time"
-                        [(ngModel)]="date.dateTime" name="time" placeholder="" required>
+                        [(ngModel)]="dateTime" name="time" placeholder="" required>
                         <div class="invalid-feedback">
                           Please enter a time.
                         </div>

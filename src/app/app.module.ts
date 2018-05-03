@@ -20,7 +20,7 @@ import { AccountComponent } from './active/accounts/accounts.component';
 import { SearchComponent } from './active/search/search.component';
 import { FavoritesComponent } from './active/favorites/favorites.component';
 import { DatesComponent } from './active/dates/dates.component';
-
+import { HelpComponent } from './active/help/accounts.component';
 
 import { PersonService } from './models/person/service/person.service';
 import { UserService } from './models/user/service/user.service';
@@ -62,7 +62,8 @@ import { BlindDateComponent } from './active/blindDate/dates.component';
     CustomersComponent,
     CustDataComponent,
     CustDatesComponent,
-    BlindDateComponent
+    BlindDateComponent,
+    HelpComponent
   ],
   imports: [
     BrowserModule,
