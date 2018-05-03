@@ -34,7 +34,7 @@ export class AccountComponent {
   // model = new Person("111-11-1111", "123456", "Aritra", "Nirmal", "aritranirmal@gmail.com", "917-932-7046",
   //  "109-24 Francis Lewis Blvd", "NY", "Queens", 11429);
   accountId: AccountId = new AccountId();
-  userAccounts = null;
+  userAccounts = [];
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
     this.getAllUserAccounts(this.userData[0]['ssn']);

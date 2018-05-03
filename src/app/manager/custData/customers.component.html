@@ -9,6 +9,9 @@
                 <div class="col-sm-8">
                   <h4 class="sm-8" (click)="setActivePage(1)" [ngClass]="{'text-muted-2': !activePage(1)}" >Get Suggestion List</h4>
                 </div>
+                <div class="col-sm-8">
+                  <h4 class="sm-8" (click)="setActivePage(2)" [ngClass]="{'text-muted-2': !activePage(2)}">Book Date</h4>
+                </div>
               </div>
 
             </div>
@@ -41,6 +44,39 @@
                               <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
                             </form>
 
+                            <form class="col-md-4" class="needs-validation" *ngIf="activePage(2)" (ngSubmit)="recordDate(signupForm)" #dateForm="ngForm" >
+
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="mb-3">
+                                    <label for="rating">Pick Date To Record</label>
+                                    <select  class="custom-select d-block w-100" id="rating"
+                                    [(ngModel)]="curDate" name="rating" required>
+
+                                      <option *ngFor="let date of dates" [ngValue]="date"> {{date.dateKey.profile1.user.person.firstName}} {{date.dateKey.profile1.user.person.lastName}} - {{date.dateKey.profile2.user.person.firstName}} {{date.dateKey.profile2.user.person.lastName}} </option>
+
+                                    </select>
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="rating">Date Location</label>
+                                    <input type="text" class="custom-select d-block w-100" id="rating"
+                                    [(ngModel)]="curDate.location" name="location" placeholder="Location" disabled>
+                                  </div>
+
+                                  <div class="mb-3">
+                                    <label for="rating">Booking Fee</label>
+                                    <input type="text" class="custom-select d-block w-100" id="rating"
+                                    [(ngModel)]="curDate.bookingFee" name="fee" placeholder="Booking fee" required>
+                                  </div>
+
+                                </div>
+
+                              </div>
+
+                              <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!dateForm.form.valid">Book Date</button>
+                            </form>
+
               <br>
               <div *ngIf="suggestions.length == 0 && loaded && activePage(1)">
                 <div class="jumbotron">
@@ -60,7 +96,7 @@
                 </div>
               </div>
 
-              <div *ngIf="suggestions.length > 0" class="row data-box">
+              <div *ngIf="suggestions.length > 0 && loaded && activePage(1)" class="row data-box">
                 <div *ngFor="let suggestion of suggestions" class="col-sm-6 accCard">
                   <div class="card">
                     <div class="card-body">
@@ -102,7 +138,7 @@
                 </div>
               </div>
 
-              <div *ngIf="mailingList.length > 0" class="row data-box">
+              <div *ngIf="mailingList.length > 0 && loaded && activePage(0)" class="row data-box">
                 <div *ngFor="let list of mailingList" class="col-sm-12 accCard">
                   <div class="card">
                     <div class="card-body">

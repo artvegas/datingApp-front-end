@@ -70,6 +70,9 @@ export class HomeNavComponent {
     this.cookieService.put("session", "false");
     this.cookieService.put("managerOn", "false");
     this.cookieService.put("custRepOn", "false");
+    this.cookieService.put("custRepOn", "false");
+    this.cookieService.removeAll();
+    console.log(this.cookieService.get("currentAccount"), "current account");
     this.userIsLoggedOut();
     this.managerIsLoggedOut();
     this.custRepIsLoggedOut();

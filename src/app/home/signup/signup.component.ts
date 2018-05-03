@@ -11,9 +11,9 @@ import { Router } from '@angular/router';
 export class SignUpComponent {
 
  constructor(private personService: PersonService, private router: Router){}
- model = new Person("111-11-1111", "123456", "Aritra", "Nirmal", "aritranirmal@gmail.com", "917-932-7046",
-  "109-24 Francis Lewis Blvd", "NY", "Queens", 11429);
- //model = new Person(null, null, null, null, null, null, null, null, null, null);
+ // model = new Person("111-11-1111", "123456", "Aritra", "Nirmal", "aritranirmal@gmail.com", "917-932-7046",
+ //  "109-24 Francis Lewis Blvd", "NY", "Queens", 11429);
+ model = new Person(null, null, null, null, null, null, null, null, null, null);
  alertShow = false;
  alertMessage = "";
 

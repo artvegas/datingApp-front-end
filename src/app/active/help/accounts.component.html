@@ -1,0 +1,86 @@
+<div class="account">
+
+<div *ngIf="userLoggedIn">
+    <div class="stackedit__html"><h1 id="welcome-to-the-user-guide">Welcome to the User Guide</h1>
+  <p>Hello, Welcome to the <strong>DatingApp</strong> user guide. Below you will find helpful information on how to guide through the website.</p>
+  <h1 id="my-profiles">My Profiles</h1>
+  <p>On your “My Profiles” tab you will find all the profiles you have created for your account. You can edit, use, or delete any profile using the buttons found under every profile displayed.</p>
+  <p>You can also create new profiles for your account by visiting this tab.</p>
+  <h2 id="must-use-profile--for-access">Must use profile  for access</h2>
+  <p>You must set a current profile by using the <strong>use</strong> button under a profile you would like to currently use. After you have selected a profile to use as your current profile, you can search for other user profiles, like other user profiles, set up dates with other user profiles, and create blind dates for other profiles.</p>
+  <h1 id="my-accounts">My Accounts</h1>
+  <p>Click on the <strong>My accounts</strong> tab to view all your accounts for your current account.</p>
+  <p>You can use the dashboard on this tab to create new accounts. You can also edit accounts.</p>
+  <p>After an account is created, the account name cannot be changed. Only the credit card number can be edited and succesfully updated for a unique account.</p>
+  <h1 id="favorites">Favorites</h1>
+  <p>All profiles which you have liked will be displayed on this tab.</p>
+  <p>You can set up dates from this tab by selecting a date, clicking view full profile, and then clicking set up date.</p>
+  <h1 id="dates">Dates</h1>
+  <p>You can view all your dates on this tab. All dates for you have been organized by <strong>Today</strong>, <strong>Upcoming</strong>, <strong>Waiting</strong>, <strong>Requests</strong>, <strong>Past</strong>, <strong>Suggestions</strong>, and <strong>Blinds</strong>.</p>
+  <p>You can cancel, accept or reject dates by clicking the cancel, accept or reject buttons under every date displayed box.</p>
+  <p>You can also rate past dates you have been on.</p>
+  <p>You can also comment on a date by clicking on the <strong>comments</strong> button under the date display box.</p>
+  <h1 id="blind-date">Blind Date</h1>
+  <p>Using this tab, you can create blind dates for other users. You can use the search dashboard on the left side of the screen to find users by physical characteristics, interests, etc.</p>
+  <p>You can click on <strong>select</strong> under each profile display box to select this profile as a candidate for your profile date.</p>
+  <h1 id="search">Search</h1>
+  <p>You can search for profiles using the search dashboard on the left side of the screen. You can search by physical characteristics, interests, etc. The dating range and dating geo range is automaticly set by the profile you are currently using.</p>
+  <p>All resulting profiles which meet your desired parameters will be displayed on the right side of the screen.</p>
+  <p>You can use the <strong>View Full Profile</strong> to view a more detailed display box of each profile.</p>
+  <p>You can use the <strong>Like</strong> button found while viewing a full profile to like a profile which will put the profile into your favorites tab.</p>
+  <p>You can use the <strong>Set up date</strong> button to set up a date with the current view full profile.</p>
+  </div>
+</div>
+
+<div *ngIf="managerIsLoggedIn">
+  <div class="stackedit__html"><h1 id="welcome-to-the-manager-user-guide">Welcome to the Manager User Guide</h1>
+  <p>Hello, Welcome to the <strong>DatingApp</strong> user guide. Below you will find helpful information on how to guide through the website.</p>
+  <h1 id="sales-report">Sales Report</h1>
+  <p>You can query for sales reports by going to this tab. You will be presented with a form which will require the needed paramters to generate a sales report.</p>
+  <h1 id="users">Users</h1>
+  <p>Below are the following features found in this tab.</p>
+  <h2 id="all-users">All users</h2>
+  <p>Clicking this will generated all users found in the database.</p>
+  <h2 id="most-active-users">Most Active Users</h2>
+  <p>Clicking this will generated the most active users currently in the database.</p>
+  <h2 id="highest-rated-user">Highest Rated User</h2>
+  <p>Clicking this will generate the highest rated user currently in the database.</p>
+  <h2 id="find-user-who-dated-user">Find User Who Dated User</h2>
+  <p>You can use the form on the right hand screen to input the first and last name of the user you want to query for. This will generate all users who have dated the user you have entered into the form.</p>
+  <h1 id="dates">Dates</h1>
+  <p>In this tab, you can use the buttons on the left hand side of the screen to generated the desired reports. All reports will be displayed on the right hand side of the screen.</p>
+  <p>You can find dates by a given calender date or a given user.</p>
+  <p>You can also find the date which had the highest rating out of all dates which have occurred.</p>
+  <h1 id="revenue">Revenue</h1>
+  <p>In this tab, you can use the buttons on the left hand side of the screen to generated the desired reports. All reports will be displayed on the right hand side of the screen.</p>
+  <p>You can generate the total revenues by dates given a calendar date or a user.</p>
+  <p>You can generate the highest grossing revenue by a user.</p>
+  <p>You can generate the highest grossing revenue by a customer representative.</p>
+  <h1 id="edit-employees">Edit Employees</h1>
+  <p>On the left hand screen you will find the edit/create dashboard. On the right hand screen you will find all employees currently in the system.</p>
+  <p>You can use the buttons <strong>Edit</strong> and <strong>Delete</strong> to edit or delete employee information.</p>
+  <p>You can create new employees as well.</p>
+  </div>
+</div>
+
+
+<div *ngIf="custRepIsLoggedIn">
+  <div class="stackedit__html"><h1 id="welcome-to-the-customer-representative-user-guide">Welcome to the Customer Representative User Guide</h1>
+  <p>Hello, Welcome to the <strong>DatingApp</strong> user guide. Below you will find helpful information on how to guide through the website.</p>
+  <h1 id="suggest">Suggest</h1>
+  <p>You can use the dashboard found on the left hand side of the screen to find profiles to then suggest for other profiles to date.</p>
+  <p>You cannot suggest profiles from the same user.</p>
+  <h1 id="customers">Customers</h1>
+  <p>You can generate customer mailing lists by clicking the <strong>Get Mailing List</strong> button.</p>
+  <p>You can generate a suggestion list for a particular customer by clicking the <strong>Get Suggestion List</strong>.</p>
+  <p>Select the profile of the customer you want to generate the suggestions list by using the form found on the right hand screen.</p>
+  <p>You can also book a date by clicking on the <strong>Book Date</strong> button. Use the form to find dates which have not been booked yet.</p>
+  <p>Select the date you want to book, and set the booking fee to set the date.</p>
+  <h1 id="edit-customers">Edit Customers</h1>
+  <p>You can use the dashboard on the left hand screen to edit and create new customers.</p>
+  <p>The display on the right hand screen displays all current customers in the system.</p>
+  <p>Use the buttons <strong>Edit</strong> and <strong>Delete</strong> to either edit or delete a customer.</p>
+  </div>
+</div>
+
+</div>

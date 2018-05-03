@@ -2,12 +2,10 @@
   <div *ngIf="loaded && currentProfileNull">
     <div class="jumbotron">
       <h1 class="display-4">You have not selected a profile to use.</h1>
-      <p class="lead">You need to select a profile to search for other profiles.</p>
+      <p class="lead">You need to select a profile to see dates for it.</p>
       <hr class="my-4">
       <p>Create a profile by going to my profiles. Make sure to create an account first to create profiles.</p>
-      <p class="lead">
-        <a class="btn btn-primary btn-lg" href="account" role="button">Create Account</a>
-      </p>
+
     </div>
   </div>
 
@@ -117,17 +115,17 @@
                   <div *ngFor="let date of blindDates" class="col-sm-6 accCard">
                     <div class="card">
                       <div class="card-body">
-                        <h5 class="card-title">{{date.profilC.user.person.firstName}} {{date.profileC.user.person.lastName}} </h5>
+                        <h5 class="card-title">Set by {{date.id.profileC.user.person.firstName}} {{date.id.profileC.user.person.lastName}} </h5>
                       </div>
 
                         <ul class="list-group list-group-flush">
                           <li class="list-group-item d-flex justify-content-between align-items-center">
                            Profile A
-                           <button class="btn btn-outline-primary">{{date.profileA.user.person.firstName}} {{date.profileA.user.person.lastName}}</button>
+                           <button class="btn btn-outline-primary">{{date.id.profileA.user.person.firstName}} {{date.id.profileA.user.person.lastName}}</button>
                          </li>
                           <li class="list-group-item d-flex justify-content-between align-items-center">
                            Profile B
-                           <button class="btn btn-outline-primary">{{date.profileB.user.person.firstName}} {{date.profileB.user.person.lastName}}</button>
+                           <button class="btn btn-outline-primary">{{date.id.profileB.user.person.firstName}} {{date.id.profileB.user.person.lastName}}</button>
                          </li>
                         </ul>
                     </div>
@@ -167,6 +165,10 @@
                                 </div>
                                 <ul  class="list-group list-group-flush">
                                   <li class="list-group-item d-flex justify-content-between align-items-center">
+                                   Booked Stats
+                                  <button class="btn btn-outline-primary">{{getBookedStats(date.status)}}</button>
+                                  </li>
+                                  <li class="list-group-item d-flex justify-content-between align-items-center">
                                    With
                                   <button class="btn btn-outline-primary">{{getDateWithName(date)}}</button>
                                   </li>
@@ -191,9 +193,10 @@
                                     <button class="btn btn-outline-primary">{{getDateRating(date, 0)}}</button>
                                   </li>
                                 </ul>
-                                <div class="card-footer" *ngIf="!activePageCheck(1) && !activePageCheck(2)">
+                                <div class="card-footer" *ngIf="!activePageCheck(1)">
                                   <button class="btn btn-outline-primary" (click)="cancelDate(date)" *ngIf="activePageCheck(0)"> Cancel Date</button>
                                   <button class="btn btn-outline-primary" (click)="acceptDate(date)" *ngIf="activePageCheck(2)"> Accept Date</button>
+                                  <button class="btn btn-outline-primary" (click)="finishedDate(date)" *ngIf="activePageCheck(4)"> Finish Date</button>
                                   <button class="btn btn-outline-primary" (click)="rejectDate(date)" *ngIf="activePageCheck(2)"> Reject Date</button>
                                   <button class="btn btn-outline-primary" (click)="viewComments(date)" *ngIf="activePageCheck(0) || activePageCheck(4) || activePageCheck(3) " data-toggle="modal" data-target="#commentModal">Comments</button>
                                   <button class="btn btn-outline-primary" (click)="setActiveDate(date)" *ngIf="activePageCheck(3) " data-toggle="modal" data-target="#commentModal">Rate Date</button>

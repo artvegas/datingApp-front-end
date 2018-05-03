@@ -39,7 +39,7 @@
                 <div class="mb-3">
                   <label for="email">Credit Card</label>
                   <input type="text" class="form-control" id="ccNum"
-                  [(ngModel)]="accountId.cardNumber" name="ccNum" (change)="ValidatesCreditCardNumber()" placeholder="555-555-5555" required>
+                  [(ngModel)]="accountId.cardNumber" name="ccNum" (change)="ValidatesCreditCardNumber()" placeholder="4242424242424242" required>
                 </div>
 
                 <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">{{dashboardBtnMessage}}</button>

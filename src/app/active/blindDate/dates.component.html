@@ -1,5 +1,15 @@
 <div class="accounts">
-  <div class="row">
+  <div *ngIf="loaded && currentProfileNull">
+    <div class="jumbotron">
+      <h1 class="display-4">You have not selected a profile to use.</h1>
+      <p class="lead">You need to select a profile to see dates for it.</p>
+      <hr class="my-4">
+      <p>Create a profile by going to my profiles. Make sure to create an account first to create profiles.</p>
+      
+    </div>
+  </div>
+
+  <div *ngIf="!currentProfileNull" class="row">
     <div class="col-md-4 order-md-1">
             <div class="account-form">
               <div class="row header">
@@ -125,7 +135,7 @@
                                     </div>
                                   </div>
                                 </div>
-                              
+
 
 
 

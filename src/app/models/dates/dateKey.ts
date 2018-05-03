@@ -5,5 +5,5 @@ export class DateKey {
 
   public profile1: Profile;
   public profile2: Profile;
-  public dateTime: Date
+  public dateTime: Date;
 }

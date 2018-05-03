@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { User } from '../../models/user/user';
 import { Person } from '../../models/person/person';
 import { Account } from '../../models/account/account';
+import { Dates } from '../../models/dates/dates';
+import { Employee } from '../../models/employee/employee';
 import { AccountId } from '../../models/account/accountId';
 import { PersonService } from '../../models/person/service/person.service';
 import { AccountService } from '../../models/account/service/account.service';
@@ -38,6 +40,8 @@ export class CustDataComponent {
 	activeHobbiesList = "";
 	mailingList = [];
 	pageName ="";
+  curDate: Dates = new Dates();
+  dates = [];
   ngOnInit(): void {
 			this.setActivePage(0);
     this.userData = JSON.parse(this.cookieService.get("userData"));
@@ -48,7 +52,48 @@ export class CustDataComponent {
 			response => this.updateAllProfiles(response)
 		)
 
+    this.reportService.getAllDates().subscribe(
+      response => this.updateAllDates(response)
+    )
+
   }
+
+  setCurDate(date){
+    console.log(date, "datess");
+  }
+  recordDate(form){
+
+    var employee = new Employee();
+    employee.ssn = this.userData[0]["ssn"];
+    this.curDate.employee = employee;
+        console.log(this.curDate, "datess");
+    this.reportService.bookDate(this.curDate).subscribe(
+      response => this.updateRecordDate(response)
+    )
+  }
+
+  updateRecordDate(response){
+    if(response.statusCode === 200){
+      this.reportAlert = true;
+      this.reportMsg = "Sucessfully Booked Date.";
+      for(var i = 0; i < this.dates.length; i++){
+        if(this.dates[i].dateKey.profile1.user.person.ssn === this.curDate.dateKey.profile1.user.person.ssn &&
+        this.dates[i].dateKey.profile2.user.person.ssn === this.curDate.dateKey.profile2.user.person.ssn){
+          this.dates.splice(i, 1);
+        }
+        this.curDate = new Dates();
+      }
+    }else{
+      this.reportWarning = true;
+      this.reportMsg = "Error booking date";
+    }
+  }
+
+  updateAllDates(response){
+		if(response.statusCode === 200){
+			this.dates = response.object;
+		}
+	}
 
 	updateAllProfiles(response){
 		if(response.statusCode === 200){
@@ -184,12 +229,17 @@ export class CustDataComponent {
   }
 
   setActivePage(type){
+    this.reportAlert = false;
+    this.reportWarning = false;
+    this.reportMsg = "";
     this.page = type;
 		if(type === 0){
 			this.pageName = "Mailing List";
 		}else if(type === 1){
 			this.pageName = "Suggestion List";
-		}
+		}else if(type === 2){
+      this.pageName = "Book Date";
+    }
 
     console.log(this.displayUsers, " users");
   }

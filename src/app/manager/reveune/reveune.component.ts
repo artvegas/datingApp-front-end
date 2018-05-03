@@ -44,6 +44,7 @@ export class RevenueComponent {
   loaded = false;
   bestUser = null;
   bestCustRep = null;
+  revenueByDate = null;
   ngOnInit(): void {
     this.userData = JSON.parse(this.cookieService.get("userData"));
     this.reportService.getHighestRevenueUser().subscribe(
@@ -58,10 +59,15 @@ export class RevenueComponent {
     if(response.statusCode === 200){
       this.loaded = true;
       this.bestUser = response.object[0];
+      this.allUsers = response.object;
     }else{
       this.reportWarning  = true;
       this.reportMsg = "Error generating required dates";
     }
+  }
+
+  setBestUser(){
+
   }
 
   updatedHighestRevenueCustRep(response){
@@ -128,7 +134,7 @@ export class RevenueComponent {
 	}
 
   getByDate(form){
-    this.reportService.getAllDatesByDate(this.startYear, this.startMonth, this.startDate, this.endYear,
+    this.reportService.getMoneyByDate(this.startYear, this.startMonth, this.startDate, this.endYear,
     this.endMonth, this.endDate).subscribe(response => this.updateDateByDate(response))
   }
 
@@ -141,8 +147,9 @@ export class RevenueComponent {
   updateDateByDate(response){
       if(response.statusCode === 200){
         this.reportAlert = true;
-        this.reportMsg = "Succesfuly generated required dates.";
-        this.displayDates = response.object;
+        this.revenueByDate = response.object[0];
+        this.reportMsg = "Succesfuly generated required data";
+        console.log(this.revenueByDate, " moneey");
       }else{
         this.reportWarning  = true;
         this.reportMsg = "Error generating required dates";

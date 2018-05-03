@@ -71,25 +71,27 @@ export class DatesComponent {
           var tempProfile = JSON.parse(this.cookieService.get("currentProfile"));
           this.profile = tempProfile;
           this.currentProfileNull = false;
+          this.dateService.getUpcomingDates(this.profile.profileId).
+          subscribe(response => this.updatesUpcomingDates(response));
+          this.dateService.getBlindDates(this.profile.profileId).
+          subscribe(response => this.updateBlindDates(response));
+          this.dateService.getPastDates(this.profile.profileId).
+          subscribe(response => this.updatesPastDates(response));
+          this.dateService.getRequestsRecieved(this.profile.profileId).
+          subscribe(response => this.updatesRequestsDates(response));
+          this.dateService.getRequestsSent(this.profile.profileId).
+          subscribe(response => this.updateRequestsSentDates(response));
+          this.dateService.getDatesForToday(this.profile.profileId).
+          subscribe(response => this.updateDatesForToday(response));
+          this.dateService.getSuggestions(this.profile.profileId).
+          subscribe(response => this.updateSuggestions(response));
       }else{
           this.currentProfileNull = true;
+          this.loaded = true;
       }
         this.activeProfile.user = new User(null, null, null, null, null);
         this.activeProfile.user.person = new Person("", "", "", "", "", "", "", "", "", null);
-      this.dateService.getUpcomingDates(this.profile.profileId).
-      subscribe(response => this.updatesUpcomingDates(response));
-      this.dateService.getBlindDates(this.profile.profileId).
-      subscribe(response => this.updateBlindDates(response));
-      this.dateService.getPastDates(this.profile.profileId).
-      subscribe(response => this.updatesPastDates(response));
-      this.dateService.getRequestsRecieved(this.profile.profileId).
-      subscribe(response => this.updatesRequestsDates(response));
-      this.dateService.getRequestsSent(this.profile.profileId).
-      subscribe(response => this.updateRequestsSentDates(response));
-      this.dateService.getDatesForToday(this.profile.profileId).
-      subscribe(response => this.updateDatesForToday(response));
-      this.dateService.getSuggestions(this.profile.profileId).
-      subscribe(response => this.updateSuggestions(response));
+
     }
 
     updateRequestsSentDates(response){
@@ -158,6 +160,37 @@ export class DatesComponent {
     activePageCheck(page){
       return this.activePage === page;
     }
+
+    getBookedStats(status){
+      if(status === 1){
+        return "Booked";
+      }else{
+        return "Not yet booked";
+      }
+    }
+
+    finishedDate(date){
+      this.dateService.finishedDate(date).subscribe(
+        resposne => updateFinishedDate(response)
+      )
+    }
+
+
+    updateFinishedDate(response, date){
+      if(response.statusCode === 200){
+        this.datingSucces = true;
+        this.datingAlertMsg = "Sucessfully finished date."
+        for(var i = 0; i < this.todayDates.length; i++){
+          if(this.todayDates[i].dateKey.profile2.profileId === date.dateKey.profile2.profileId){
+            this.todayDates.splice(i, 1);
+          }
+        }
+      }else{
+        this.datingAlert = true;
+        this.datingAlertMsg = "Error finishing date."
+      }
+    }
+
 
     getAllUserAccounts(ssn: string): void{
       this.accountService.getAccountsWithSSN(ssn).subscribe(response => this.updatesUserHasNoAccounts(response));

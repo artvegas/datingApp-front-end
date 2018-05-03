@@ -114,28 +114,23 @@
                 <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
               </form>
 
-              <form class="col-md-4" class="needs-validation" *ngIf="activePage(1)" (ngSubmit)="getByUser(signupForm)" #signupForm="ngForm" >
+              <form class="col-md-12" class="needs-validation" *ngIf="activePage(1)" (ngSubmit)="setBestUser(signupForm)" #userForm="ngForm" >
 
                 <div class="row">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <div class="mb-3">
-                      <label for="email">First Name</label>
-                      <input type="text" class="form-control" id="acctName"
-                      [(ngModel)]="firstName" name="year" placeholder="First Name" required>
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="mb-3">
-                      <label for="email">Last Name</label>
-                      <input  type="text" class="form-control" id="acctName"
-                      [(ngModel)]="lastName" name="year" placeholder="Last Name" required>
+                      <label for="bestUser">Pick User</label>
+                      <select  class="custom-select d-block w-100" id="bestUser"
+                      [(ngModel)]="bestUser" name="rating" required>
+
+                        <option *ngFor="let users of allUsers" [ngValue]="users"> {{users.user.person.firstName}} {{users.user.person.lastName}}  </option>
+                        </select>
                     </div>
                   </div>
 
                 </div>
 
-                <button class="btn btn-primary btn-lg btn-block" type="submit" [disabled]="!signupForm.form.valid">Search</button>
-              </form>
+                  </form>
 
 
               <br>
@@ -151,7 +146,7 @@
 
 
 
-              <div *ngIf="bestUser && activePage(2)" class="row data-box">
+              <div *ngIf="bestUser && (activePage(2) || activePage(1) )" class="row data-box">
                   <div class="card col-md-12">
                     <div class="card-body"  >
                       <h5 class="card-title">{{bestUser.user.person.firstName}} {{bestUser.user.person.lastName}}</h5>
@@ -174,6 +169,20 @@
                       <li class="list-group-item d-flex justify-content-between align-items-center">
                        Total Revenue Generated
                       <button class="btn btn-outline-primary">$ {{bestCustRep.bookingFees}}</button>
+                      </li>
+                    </ul>
+                  </div>
+              </div>
+
+              <div *ngIf="revenueByDate && activePage(0)" class="row data-box">
+                  <div class="card col-md-12">
+                    <div class="card-body"  >
+                      <h5 class="card-title">By Dates</h5>
+                    </div>
+                    <ul  class="list-group list-group-flush">
+                      <li class="list-group-item d-flex justify-content-between align-items-center">
+                       Total Revenue Generated
+                      <button class="btn btn-outline-primary">$ {{revenueByDate.totalFee}}</button>
                       </li>
                     </ul>
                   </div>

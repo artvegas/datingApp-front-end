@@ -31,6 +31,7 @@ constructor( private http: HttpClient){}
    private pastDatesUrl = this.baseUrl + "past/";
    private requestsRecievedUrl = this.baseUrl + "requests/";
    private acceptDateUrl = this.baseUrl + "accept/";
+   private finishedDateUrl = this.baseUrl + "complete/";
    private rejectDateUrl = this.baseUrl + "reject/";
    private cancelDateUrl = this.baseUrl + "cancel/";
    private datesForTodayUrl = this.baseUrl + "today/";
@@ -50,6 +51,13 @@ constructor( private http: HttpClient){}
 
   rateDate (dates: Dates): Observable<Dates> {
     return this.http.post<Dates>(this.rateDateUrl, dates, httpOptions).pipe(
+    tap((dates: Dates) => this.log(` rateDate ${dates}`)),
+    catchError(this.handleError<Dates>('rateDate'))
+  )}
+
+
+  finishedDate (dates: Dates): Observable<Dates> {
+    return this.http.post<Dates>(this.finishedDateUrl, dates, httpOptions).pipe(
     tap((dates: Dates) => this.log(` rateDate ${dates}`)),
     catchError(this.handleError<Dates>('rateDate'))
   )}
